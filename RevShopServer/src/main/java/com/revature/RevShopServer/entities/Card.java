@@ -1,19 +1,29 @@
 package com.revature.RevShopServer.entities;
 
 import com.revature.RevShopServer.enums.CardType;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Card {
+    @Id
+    @Column(name = "card_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cardId;
 
     private String cardNumber;
 
     private String cardHolderName;
 
+    @Size(min = 5, max = 5, message = "Expiration Date must be 5 characters")
     private String expirationDate;
 
+    @Enumerated(EnumType.STRING)
     private CardType cardType;
+
+    @ManyToMany
+    @JoinColumn(name = "buyer_id")
+    private Buyer buyer;
 
     public Card() {
     }

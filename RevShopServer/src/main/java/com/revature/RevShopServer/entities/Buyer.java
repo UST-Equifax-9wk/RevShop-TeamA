@@ -19,7 +19,7 @@ public class Buyer {
     public Buyer() {
     }
 
-    public Buyer(Integer buyerId, Account account) {
+    public Buyer(Integer buyerId, Accounts account) {
         this.buyerId = buyerId;
         this.account = account;
     }
@@ -32,11 +32,11 @@ public class Buyer {
         this.buyerId = buyerId;
     }
 
-    public Account getAccount() {
+    public Accounts getAccount() {
         return account;
     }
 
-    public void setAccount(Account account) {
+    public void setAccount(Accounts account) {
         this.account = account;
     }
 
