@@ -1,6 +1,9 @@
 package com.revature.RevShopServer.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
@@ -14,8 +17,13 @@ public class Accounts {
     private String username;
     @Column(nullable = false, unique = true)
     private String password;
+    @NotNull
+    @Email
+    @Size(min = 3, max = 50, message = "Email should be between 3 and 50 characters")
     @Column(nullable = false, unique = true)
     private String email;
+    @NotNull
+    @Size(min = 9, max = 15, message = "Phone should be between 9 and 15 characters")
     @Column(nullable = false, unique = true)
     private String phone;
     @Column(nullable = false)

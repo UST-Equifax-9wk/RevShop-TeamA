@@ -9,7 +9,7 @@ public class Sellers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sellersid;
     @OneToOne
-    @JoinColumn(name = "sellers", nullable = false)
+    @JoinColumn(name = "accounts", nullable = false)
     private Accounts accounts;
 
     public Sellers(Integer sellersid, Accounts accounts) {
