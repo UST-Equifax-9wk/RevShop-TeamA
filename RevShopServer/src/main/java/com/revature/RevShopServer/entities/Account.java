@@ -1,27 +1,37 @@
 package com.revature.RevShopServer.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
 @Entity
-public class Accounts {
+public class Account {
     @Id
     @Column(name = "account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer accountid;
+    @NotNull
     @Column(nullable = false, unique = true)
     private String username;
+    @NotNull
     @Column(nullable = false, unique = true)
     private String password;
+    @NotNull
+    @Email
+    @Size(min = 3, max = 50, message = "Email should be between 3 and 50 characters")
     @Column(nullable = false, unique = true)
     private String email;
+    @NotNull
+    @Size(min = 9, max = 15, message = "Phone should be between 9 and 15 characters")
     @Column(nullable = false, unique = true)
     private String phone;
     @Column(nullable = false)
     private String accountType;
 
-    public Accounts(Integer accountid, String username, String password, String email, String phone, String accountType) {
+    public Account(Integer accountid, String username, String password, String email, String phone, String accountType) {
         this.accountid = accountid;
         this.username = username;
         this.password = password;
@@ -30,7 +40,7 @@ public class Accounts {
         this.accountType = accountType;
     }
 
-    public Accounts(String username, String password, String email, String phone, String accountType) {
+    public Account(String username, String password, String email, String phone, String accountType) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -38,14 +48,14 @@ public class Accounts {
         this.accountType = accountType;
     }
 
-    public Accounts(String username, String password, String email, String phone) {
+    public Account(String username, String password, String email, String phone) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.phone = phone;
     }
 
-    public Accounts() {
+    public Account() {
 
     }
 
@@ -101,7 +111,7 @@ public class Accounts {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Accounts account = (Accounts) o;
+        Account account = (Account) o;
         return Objects.equals(accountid, account.accountid) && Objects.equals(username, account.username) && Objects.equals(password, account.password) && Objects.equals(email, account.email) && Objects.equals(phone, account.phone) && Objects.equals(accountType, account.accountType);
     }
 
