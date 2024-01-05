@@ -9,11 +9,11 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartItemId;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "buyer_id")
     private Buyer buyer;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "sellers_id")
     private Seller seller;
 
