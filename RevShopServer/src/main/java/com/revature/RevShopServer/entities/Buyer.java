@@ -20,7 +20,7 @@ public class Buyer {
     }
 
 
-    public Buyer(Buyer buyerId, Accounts account) {
+    public Buyer(Buyer buyerId, Account account) {
         this.buyerId = buyerId;
         this.account = account;
     }
