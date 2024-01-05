@@ -2,6 +2,7 @@ package com.revature.RevShopServer.entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 
 @Entity(name = "Products")
 public class Product {
@@ -23,9 +24,11 @@ public class Product {
     @Column(name = "category")
     private String category;
 
+    @Positive(message = "Your product price must be positive")
     @Column(name = "price")
     private float price;
 
+    @Positive(message = "Your product price must be positive")
     @Column(name = "inventory_count")
     private int inventoryCount;
 

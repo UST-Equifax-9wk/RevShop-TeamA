@@ -2,6 +2,8 @@ package com.revature.RevShopServer.entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Positive;
 
 @Entity(name = "product_reviews")
 public class Review {
@@ -15,6 +17,8 @@ public class Review {
     @Column(name = "product_id")
     private int productId;
 
+    @Positive(message = "You cannot rate something below 0!")
+    @Max(10)
     @Column(name = "rating")
     private float rating;
 
