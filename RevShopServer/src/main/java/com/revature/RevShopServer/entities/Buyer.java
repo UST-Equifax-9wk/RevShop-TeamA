@@ -10,11 +10,11 @@ public class Buyer {
 
     @Id
     @Column(name = "buyer_id")
-    Integer buyerId;
+    private Integer buyerId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
-    Account account;
+    private Account account;
 
     public Buyer() {
     }

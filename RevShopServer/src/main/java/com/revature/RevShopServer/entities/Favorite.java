@@ -9,17 +9,17 @@ import java.util.Objects;
 public class Favorite {
 
     @EmbeddedId
-    FavoriteKey id;
+    private FavoriteKey id;
 
     @ManyToOne
     @MapsId("buyerId")
     @JoinColumn(name = "buyer_id")
-    Integer buyerId;
+    private Integer buyerId;
 
     @ManyToOne
     @MapsId("productId")
     @JoinColumn(name = "product_id")
-    Integer productId;
+    private Integer productId;
 
     public Favorite() {
     }
