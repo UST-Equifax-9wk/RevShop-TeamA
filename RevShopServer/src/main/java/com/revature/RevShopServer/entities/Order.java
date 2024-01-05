@@ -33,7 +33,7 @@ public class Order {
 
     @OneToMany
     @JoinColumn(name = "sellers_id")
-    private Sellers sellers;
+    private Seller sellers;
 
     @OneToMany
     @MapsId("productId")

@@ -15,7 +15,7 @@ public class CartItem {
 
     @OneToMany
     @JoinColumn(name = "sellers_id")
-    private Sellers sellers;
+    private Seller seller;
 
     @Column(nullable = false)
     private Integer quantity;
