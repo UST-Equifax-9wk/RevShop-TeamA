@@ -1,6 +1,7 @@
 package com.revature.RevShopServer.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
@@ -27,6 +28,11 @@ public class Review {
 
     @Column(name = "timestamp")
     private String timeStamp;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    @JsonBackReference
+    private Product product;
 
     public Review(float rating){
         this.rating = rating;
@@ -75,5 +81,13 @@ public class Review {
 
     public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
