@@ -1,7 +1,11 @@
 package com.revature.RevShopServer.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
+
+import java.util.Set;
 
 @Entity(name = "Products")
 public class Product {
@@ -23,12 +27,21 @@ public class Product {
     @Column(name = "category")
     private String category;
 
+    @Positive(message = "Your product price must be positive")
     @Column(name = "price")
     private float price;
 
+    @Positive(message = "Your product price must be positive")
     @Column(name = "inventory_count")
     private int inventoryCount;
 
+    @OneToMany(mappedBy= "product", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
+    private Set<Review> reviews;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
+    private Set<Discount> discounts;
 
     //Constructors
     public Product(String name){
@@ -95,5 +108,21 @@ public class Product {
 
     public void setInventoryCount(int inventoryCount) {
         this.inventoryCount = inventoryCount;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Set<Discount> getDiscounts() {
+        return discounts;
+    }
+
+    public void setDiscounts(Set<Discount> discounts) {
+        this.discounts = discounts;
     }
 }
