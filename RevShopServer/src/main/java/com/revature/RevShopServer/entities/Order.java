@@ -1,24 +1,44 @@
 package com.revature.RevShopServer.entities;
 
 import com.revature.RevShopServer.enums.OrderStatus;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 public class Order {
+    @Id
+    @Column(name = "order_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
+    @NotNull
     private String shippingAddress;
-
+    
+    @NotNull
     private String billingAddress;
 
     private LocalDateTime timestamp;
-
+    @NotNull
     private BigDecimal amount;
+
+    @OneToMany
+    @JoinColumn(name = "buyer_id")
+    private Buyer buyer;
+
+    @OneToMany
+    @JoinColumn(name = "sellers_id")
+    private Sellers sellers;
+
+    @OneToMany
+    @MapsId("productId")
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     public Order() {
     }
