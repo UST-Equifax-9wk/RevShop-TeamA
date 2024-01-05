@@ -10,7 +10,7 @@ public class Buyer {
 
     @Id
     @Column(name = "buyer_id")
-    Integer buyerId;
+    Buyer buyerId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
@@ -19,16 +19,16 @@ public class Buyer {
     public Buyer() {
     }
 
-    public Buyer(Integer buyerId, Accounts account) {
+    public Buyer(Buyer buyerId, Accounts account) {
         this.buyerId = buyerId;
         this.account = account;
     }
 
-    public Integer getBuyerId() {
+    public Buyer getBuyerId() {
         return buyerId;
     }
 
-    public void setBuyerId(Integer buyerId) {
+    public void setBuyerId(Buyer buyerId) {
         this.buyerId = buyerId;
     }
 
