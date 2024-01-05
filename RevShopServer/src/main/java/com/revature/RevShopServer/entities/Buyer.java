@@ -16,6 +16,14 @@ public class Buyer {
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
     Account account;
 
+    public Buyer() {
+    }
+
+    public Buyer(Integer buyerId, Account account) {
+        this.buyerId = buyerId;
+        this.account = account;
+    }
+
     public Integer getBuyerId() {
         return buyerId;
     }
