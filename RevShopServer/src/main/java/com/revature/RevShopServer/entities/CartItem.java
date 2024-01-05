@@ -1,12 +1,23 @@
 package com.revature.RevShopServer.entities;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 @Entity
 public class CartItem {
-
+    @Id
+    @Column(name = "cart_item_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartItemId;
 
+    @OneToMany
+    @JoinColumn(name = "buyer_id")
+    private Buyer buyer;
+
+    @OneToMany
+    @JoinColumn(name = "sellers_id")
+    private Sellers sellers;
+
+    @Column(nullable = false)
     private Integer quantity;
 
     public CartItem() {
