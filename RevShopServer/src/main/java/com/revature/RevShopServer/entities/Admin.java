@@ -3,29 +3,29 @@ package com.revature.RevShopServer.entities;
 import jakarta.persistence.*;
 
 @Entity
-public class Admins {
+public class Admin {
     @Id
     @Column(name ="admin_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer adminid;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account", nullable = false)
-    private Accounts accounts;
+    private Account account;
 
-    public Admins() {
+    public Admin() {
     }
 
-    public Admins(Accounts accounts) {
-        this.accounts = accounts;
+    public Admin(Account account) {
+        this.account = account;
     }
 
-    public Admins(Integer adminid) {
+    public Admin(Integer adminid) {
         this.adminid = adminid;
     }
 
-    public Admins(Integer adminid, Accounts accounts) {
+    public Admin(Integer adminid, Account account) {
         this.adminid = adminid;
-        this.accounts = accounts;
+        this.account = account;
     }
 
     public Integer getAdminid() {
@@ -36,11 +36,11 @@ public class Admins {
         this.adminid = adminid;
     }
 
-    public Accounts getAccounts() {
-        return accounts;
+    public Account getAccounts() {
+        return account;
     }
 
-    public void setAccounts(Accounts accounts) {
-        this.accounts = accounts;
+    public void setAccounts(Account account) {
+        this.account = account;
     }
 }

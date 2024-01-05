@@ -14,12 +14,12 @@ public class Buyer {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
-    Accounts account;
+    Account account;
 
     public Buyer() {
     }
 
-    public Buyer(Integer buyerId, Accounts account) {
+    public Buyer(Integer buyerId, Account account) {
         this.buyerId = buyerId;
         this.account = account;
     }
@@ -32,11 +32,11 @@ public class Buyer {
         this.buyerId = buyerId;
     }
 
-    public Accounts getAccount() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccount(Accounts account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 
