@@ -27,18 +27,15 @@ public class Order {
     @NotNull
     private BigDecimal amount;
 
-    @ManyToOne
-    @MapsId("buyerId")
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "buyer_id")
     private Buyer buyer;
 
-    @ManyToOne
-    @MapsId("sellersid")
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sellers_id")
-    private Sellers sellers;
+    private Seller sellers;
 
-    @ManyToOne
-    @MapsId("productId")
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private Product product;
 
