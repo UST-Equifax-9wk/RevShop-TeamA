@@ -25,9 +25,23 @@ export class RemoteService {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     })
   }
+  registerNewProduct(product:NewProductDto, sellerName:string){
+    return this.httpClient.post(this.baseUrl + "/shopAccounts/" + sellerName + "/registerProduct", JSON.stringify(product),{
+      observe: 'response',
+      withCredentials: true ,
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    })
+  }
 }
 export interface NewMessageDto{
   recipient:string
   subject:string
   message:string
+}
+export interface NewProductDto{
+  name:string
+  description:string
+  category:string
+  price:number
+  inventoryCount:number
 }
