@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "sellers")
 public class Seller {
     @Id
-    @Column(name = "sellers_id")
+    @Column(name = "seller_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sellerId;
     @OneToOne
