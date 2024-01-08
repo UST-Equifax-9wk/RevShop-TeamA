@@ -22,8 +22,6 @@ public class Discount {
     @Column(name = "end_date")
     private String endDate;
 
-    @Column(name = "product_id")
-    private int productId;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -64,13 +62,7 @@ public class Discount {
         this.endDate = endDate;
     }
 
-    public int getProductId() {
-        return productId;
-    }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
 
     public float getDiscountPrice() {
         return discountPrice;
