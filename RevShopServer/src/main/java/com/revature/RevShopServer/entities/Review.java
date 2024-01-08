@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 
-@Entity(name = "product_reviews")
+@Entity(name = "reviews")
 public class Review {
 
 

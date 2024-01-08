@@ -3,6 +3,7 @@ package com.revature.RevShopServer.entities;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "cart_items")
 public class CartItem {
     @Id
     @Column(name = "cart_item_id")

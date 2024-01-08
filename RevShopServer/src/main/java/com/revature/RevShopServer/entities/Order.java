@@ -7,7 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity(name = "Orders")
+
+@Entity(name = "orders")
 public class Order {
     @Id
     @Column(name = "order_id")
