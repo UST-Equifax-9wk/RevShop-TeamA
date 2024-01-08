@@ -1,0 +1,10 @@
+<h2>This is the email sender test</h2>
+
+
+<label>Subject:</label>
+<input type="text" id = cardType [(ngModel)]="newMessage.subject">
+<br>
+<label>Message body:</label>
+<input type="text" id = cardType [(ngModel)]="newMessage.message">
+<br>
+<button (click)="sendEmail()">Send!</button>
