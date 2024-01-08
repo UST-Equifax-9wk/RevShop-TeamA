@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 @Entity
+@Table(name = "cards")
 public class Card {
     @Id
     @Column(name = "card_id")

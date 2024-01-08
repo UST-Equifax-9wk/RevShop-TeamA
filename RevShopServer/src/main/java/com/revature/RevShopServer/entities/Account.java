@@ -8,11 +8,12 @@ import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
+@Table(name = "accounts")
 public class Account {
     @Id
     @Column(name = "account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer accountid;
+    private Integer accountId;
     @NotNull
     @Column(nullable = false, unique = true)
     private String username;
@@ -31,8 +32,8 @@ public class Account {
     @Column(nullable = false)
     private String accountType;
 
-    public Account(Integer accountid, String username, String password, String email, String phone, String accountType) {
-        this.accountid = accountid;
+    public Account(Integer accountId, String username, String password, String email, String phone, String accountType) {
+        this.accountId = accountId;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -59,12 +60,12 @@ public class Account {
 
     }
 
-    public Integer getAccountid() {
-        return accountid;
+    public Integer getaccountId() {
+        return accountId;
     }
 
-    public void setAccountid(Integer accountid) {
-        this.accountid = accountid;
+    public void setaccountId(Integer accountId) {
+        this.accountId = accountId;
     }
 
     public String getUsername() {
@@ -112,18 +113,18 @@ public class Account {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return Objects.equals(accountid, account.accountid) && Objects.equals(username, account.username) && Objects.equals(password, account.password) && Objects.equals(email, account.email) && Objects.equals(phone, account.phone) && Objects.equals(accountType, account.accountType);
+        return Objects.equals(accountId, account.accountId) && Objects.equals(username, account.username) && Objects.equals(password, account.password) && Objects.equals(email, account.email) && Objects.equals(phone, account.phone) && Objects.equals(accountType, account.accountType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountid, username, password, email, phone, accountType);
+        return Objects.hash(accountId, username, password, email, phone, accountType);
     }
 
     @Override
     public String toString() {
         return "Account{" +
-                "accountid=" + accountid +
+                "accountId=" + accountId +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
