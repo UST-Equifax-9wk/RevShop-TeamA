@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity(name = "orders")
 public class Order {
     @Id
     @Column(name = "order_id")
@@ -24,6 +24,7 @@ public class Order {
     private String billingAddress;
 
     private LocalDateTime timestamp;
+
     @NotNull
     private BigDecimal amount;
 

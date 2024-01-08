@@ -15,9 +15,6 @@ public class Review {
     @Column(name = "review_id")
     private int reviewId;
 
-    @Column(name = "product_id")
-    private int productId;
-
     @Positive(message = "You cannot rate something below 0!")
     @Max(10)
     @Column(name = "rating")
@@ -49,14 +46,6 @@ public class Review {
 
     public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
     }
 
     public float getRating() {
