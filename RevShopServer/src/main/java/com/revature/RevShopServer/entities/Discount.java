@@ -1,7 +1,9 @@
 package com.revature.RevShopServer.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 
 @Entity(name = "product_discounts")
 public class Discount {
@@ -11,6 +13,7 @@ public class Discount {
     @Column(name = "discount_id")
     private int discountId;
 
+    @Positive(message = "Your product price must be positive")
     @Column(name = "discount_price")
     private float discountPrice;
     @Column(name = "start_date")
@@ -22,6 +25,10 @@ public class Discount {
     @Column(name = "product_id")
     private int productId;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    @JsonBackReference
+    private Product product;
 
     //Constructors
     public Discount(float discountPrice){
@@ -71,5 +78,13 @@ public class Discount {
 
     public void setDiscountPrice(float discountPrice) {
         this.discountPrice = discountPrice;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

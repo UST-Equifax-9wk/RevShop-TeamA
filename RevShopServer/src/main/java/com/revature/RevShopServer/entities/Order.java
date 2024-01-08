@@ -19,7 +19,7 @@ public class Order {
 
     @NotNull
     private String shippingAddress;
-    
+
     @NotNull
     private String billingAddress;
 
@@ -27,15 +27,17 @@ public class Order {
     @NotNull
     private BigDecimal amount;
 
-    @OneToMany
+    @ManyToOne
+    @MapsId("buyerId")
     @JoinColumn(name = "buyer_id")
     private Buyer buyer;
 
-    @OneToMany
+    @ManyToOne
+    @MapsId("sellersid")
     @JoinColumn(name = "sellers_id")
     private Sellers sellers;
 
-    @OneToMany
+    @ManyToOne
     @MapsId("productId")
     @JoinColumn(name = "product_id")
     private Product product;

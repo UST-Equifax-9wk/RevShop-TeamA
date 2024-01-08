@@ -14,17 +14,18 @@ public class Favorite {
     @ManyToOne
     @MapsId("buyerId")
     @JoinColumn(name = "buyer_id")
-    private Integer buyerId;
+    private Buyer buyerId;
+
 
     @ManyToOne
     @MapsId("productId")
     @JoinColumn(name = "product_id")
-    private Integer productId;
+    private Product productId;
 
     public Favorite() {
     }
 
-    public Favorite(FavoriteKey id, Integer buyerId, Integer productId) {
+    public Favorite(FavoriteKey id, Buyer buyerId, Product productId) {
         this.id = id;
         this.buyerId = buyerId;
         this.productId = productId;
@@ -38,19 +39,19 @@ public class Favorite {
         this.id = id;
     }
 
-    public Integer getBuyerId() {
+    public Buyer getBuyerId() {
         return buyerId;
     }
 
-    public void setBuyerId(Integer buyerId) {
+    public void setBuyerId(Buyer buyerId) {
         this.buyerId = buyerId;
     }
 
-    public Integer getProductId() {
+    public Product getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(Product productId) {
         this.productId = productId;
     }
 

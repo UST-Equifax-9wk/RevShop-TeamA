@@ -21,7 +21,7 @@ public class Card {
     @Enumerated(EnumType.STRING)
     private CardType cardType;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "buyer_id")
     private Buyer buyer;
 

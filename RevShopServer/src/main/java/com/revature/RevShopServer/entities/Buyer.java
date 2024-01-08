@@ -32,11 +32,11 @@ public class Buyer {
         this.buyerId = buyerId;
     }
 
-    public Accounts getAccount() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccount(Accounts account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 
