@@ -4,13 +4,10 @@ import com.revature.RevShopServer.entities.Account;
 import com.revature.RevShopServer.services.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
 public class AccountController {
     private final AccountService accountService;
     @Autowired
@@ -19,6 +16,7 @@ public class AccountController {
     }
 
     @PostMapping(path = "/register")
+    @ResponseStatus(HttpStatus.OK)
     public Account registerAccount(@Valid @RequestBody Account account)
     {
         return accountService.save(account);

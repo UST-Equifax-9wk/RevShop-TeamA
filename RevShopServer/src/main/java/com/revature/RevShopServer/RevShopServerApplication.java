@@ -8,7 +8,14 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 
-@SpringBootApplication(scanBasePackages = {"com.revature.RevShopServer.entities", "com.revature.RevShopServer.services", "com.revature.RevShopServer.controllers", "com.revature.RevShopServer.repositories","com.revature.RevShopServer.config"}, exclude={SecurityAutoConfiguration.class} )
+@SpringBootApplication(scanBasePackages = {"com.revature.RevShopServer.entities",
+		"com.revature.RevShopServer.controllers",
+		"com.revature.RevShopServer.config",
+		"com.revature.RevShopServer.services",
+		"com.revature.RevShopServer.repositories"},
+		exclude = { SecurityAutoConfiguration.class })
+
+
 public class RevShopServerApplication {
 
 	public static void main(String[] args) {
