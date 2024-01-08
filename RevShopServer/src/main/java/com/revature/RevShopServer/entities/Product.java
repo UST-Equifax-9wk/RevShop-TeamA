@@ -7,7 +7,8 @@ import jakarta.validation.constraints.Positive;
 
 import java.util.Set;
 
-@Entity(name = "Products")
+@Entity
+@Table(name = "products")
 public class Product {
 
     @Id
