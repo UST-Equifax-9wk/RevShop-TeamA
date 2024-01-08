@@ -10,10 +10,10 @@ import java.util.Objects;
 public class FavoriteKey implements Serializable {
 
     @Column(name = "buyer_id")
-    Integer buyerId;
+    private Integer buyerId;
 
     @Column(name = "product_id")
-    Integer productId;
+    private Integer productId;
 
     public Integer getBuyerId() {
         return buyerId;

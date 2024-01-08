@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 
-@Entity(name = "product_discounts")
+@Entity
+@Table(name = "discounts")
 public class Discount {
 
     @Id
@@ -21,7 +22,6 @@ public class Discount {
 
     @Column(name = "end_date")
     private String endDate;
-
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -61,8 +61,6 @@ public class Discount {
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
-
-
 
     public float getDiscountPrice() {
         return discountPrice;

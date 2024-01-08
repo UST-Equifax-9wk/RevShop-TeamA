@@ -3,33 +3,34 @@ package com.revature.RevShopServer.entities;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "sellers")
 public class Seller {
     @Id
-    @Column(name = "sellers_id")
+    @Column(name = "seller_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer sellersid;
+    private Integer sellerId;
     @OneToOne
     @JoinColumn(name = "account", nullable = false)
     private Account account;
 
-    public Seller(Integer sellersid, Account account) {
-        this.sellersid = sellersid;
+    public Seller(Integer sellerId, Account account) {
+        this.sellerId = sellerId;
         this.account = account;
     }
 
-    public Seller(Integer sellersid) {
-        this.sellersid = sellersid;
+    public Seller(Integer sellerId) {
+        this.sellerId = sellerId;
     }
 
     public Seller() {
     }
 
-    public Integer getSellerid() {
-        return sellersid;
+    public Integer getSellerId() {
+        return sellerId;
     }
 
-    public void setSellerid(Integer sellersid) {
-        this.sellersid = sellersid;
+    public void setSellerId(Integer sellerId) {
+        this.sellerId = sellerId;
     }
 
     public Account getAccounts() {

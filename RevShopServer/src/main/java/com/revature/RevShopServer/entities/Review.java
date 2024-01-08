@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 
-@Entity(name = "product_reviews")
+@Entity(name = "reviews")
 public class Review {
 
 
@@ -47,7 +47,6 @@ public class Review {
     public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
     }
-
 
     public float getRating() {
         return rating;
