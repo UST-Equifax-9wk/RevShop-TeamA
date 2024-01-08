@@ -1,6 +1,6 @@
 # RevShop from Team A
 
-## Written by Arvin Shertukde, Ciaran Diep, Divya Desai, Favio Balladares Jr., and Roman Mazzoni
+## Written by Arvin Shertukde, Ciaran Diep, Divya Desai, and Roman Mazzoni
 
 ## Application Overview
 The RevShop project aims to develop a secure, user-friendly, and versatile e-commerce application for
