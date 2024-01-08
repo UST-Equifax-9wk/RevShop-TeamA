@@ -1,6 +1,7 @@
 package com.revature.RevShopServer.services;
 
 import com.revature.RevShopServer.entities.Account;
+import com.revature.RevShopServer.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
