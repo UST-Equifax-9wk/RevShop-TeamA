@@ -48,7 +48,6 @@ public class Review {
         this.reviewId = reviewId;
     }
 
-
     public float getRating() {
         return rating;
     }

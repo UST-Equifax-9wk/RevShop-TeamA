@@ -23,7 +23,6 @@ public class Discount {
     @Column(name = "end_date")
     private String endDate;
 
-
     @ManyToOne
     @JoinColumn(name = "product_id")
     @JsonBackReference
@@ -62,8 +61,6 @@ public class Discount {
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
-
-
 
     public float getDiscountPrice() {
         return discountPrice;
