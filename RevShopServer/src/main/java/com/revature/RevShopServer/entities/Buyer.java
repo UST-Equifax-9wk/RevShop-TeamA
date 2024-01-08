@@ -19,7 +19,8 @@ public class Buyer {
     public Buyer() {
     }
 
-    public Buyer(Integer buyerId, Accounts account) {
+    public Buyer(Integer buyerId, Account account) {
+
         this.buyerId = buyerId;
         this.account = account;
     }
