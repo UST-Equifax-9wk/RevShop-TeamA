@@ -25,6 +25,7 @@ public class Order {
     private String billingAddress;
 
     private LocalDateTime timestamp;
+
     @NotNull
     private BigDecimal amount;
 
