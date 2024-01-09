@@ -7,23 +7,26 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-register-item',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, CommonModule],
   templateUrl: './register-item.component.html',
   styleUrl: './register-item.component.css'
 })
 export class RegisterItemComponent {
   remoteService:RemoteService
   sellerName:string
+  dullButton:boolean
   newProduct:NewProductDto = {
     name:"",
     description : "",
     category : "",
     price: 0,
     inventoryCount: 0
+    
   }
   constructor(remoteService:RemoteService){
     this.remoteService = remoteService
     this.sellerName = ""
+    this.dullButton = false
   }
 
   registerProduct(){
