@@ -1,6 +1,5 @@
 package com.revature.revshopserver.entities;
 
-
 import jakarta.persistence.*;
 
 @Entity

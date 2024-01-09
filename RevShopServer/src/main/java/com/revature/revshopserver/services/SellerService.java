@@ -1,6 +1,5 @@
 package com.revature.revshopserver.services;
 
-import com.revature.revshopserver.entities.Account;
 import com.revature.revshopserver.entities.Seller;
 import com.revature.revshopserver.exceptions.ObjectNotFoundException;
 import com.revature.revshopserver.repositories.AccountRepository;

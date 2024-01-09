@@ -10,8 +10,6 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 		"com.revature.revshopserver.services",
 		"com.revature.revshopserver.repositories"},
 		exclude = { SecurityAutoConfiguration.class })
-
-
 public class RevShopServerApplication {
 
 	public static void main(String[] args) {

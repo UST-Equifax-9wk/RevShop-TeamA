@@ -1,42 +1,61 @@
 package com.revature.revshopserver.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+import java.time.ZonedDateTime;
 
-@Entity(name = "reviews")
+@Entity
+@Table(name = "reviews")
 public class Review {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "review_id")
-    private int reviewId;
+    private Integer reviewId;
 
-    @Positive(message = "You cannot rate something below 0!")
-    @Max(10)
+    @PositiveOrZero(message = "You cannot rate something below 0!")
+    @Max(5)
     @Column(name = "rating")
-    private float rating;
+    private Integer rating;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "timestamp")
-    private String timeStamp;
+    @Column(name = "timestamp",
+            columnDefinition = "timestamp USING \"timestamp\"::timestamp(6) with time zone",
+            nullable = false)
+    private ZonedDateTime timestamp;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     @JsonBackReference
     private Product product;
 
-    public Review(float rating){
-        this.rating = rating;
-    }
+    @ManyToOne
+    @JoinColumn(name = "buyer_id")
+    @JsonBackReference
+    private Buyer author;
 
     public Review(){
 
+    }
+
+    public Review(Integer rating, String description, ZonedDateTime timestamp, Product product) {
+        this.rating = rating;
+        this.description = description;
+        this.timestamp = timestamp;
+        this.product = product;
+        this.author = null;
+    }
+
+    public Review(Integer rating, String description, ZonedDateTime timestamp, Product product, Buyer author) {
+        this.rating = rating;
+        this.description = description;
+        this.timestamp = timestamp;
+        this.product = product;
+        this.author = author;
     }
 
     //Getters and setters
@@ -44,7 +63,7 @@ public class Review {
         return reviewId;
     }
 
-    public void setReviewId(int reviewId) {
+    public void setReviewId(Integer reviewId) {
         this.reviewId = reviewId;
     }
 
@@ -52,7 +71,7 @@ public class Review {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 
@@ -64,12 +83,12 @@ public class Review {
         this.description = description;
     }
 
-    public String getTimeStamp() {
-        return timeStamp;
+    public ZonedDateTime getTimestamp() {
+        return timestamp;
     }
 
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setTimestamp(ZonedDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     public Product getProduct() {
@@ -79,4 +98,13 @@ public class Review {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+    public Buyer getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Buyer author) {
+        this.author = author;
+    }
+
 }
