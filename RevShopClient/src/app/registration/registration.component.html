@@ -1,1 +1,25 @@
-<p>registration works!</p>
+<div *ngIf="message!=''">{{message}}</div>
+<div>
+    <label><strong>Enter your username:</strong> </label>
+    <input type="text" placeholder="username" [(ngModel)]="user.username">
+</div>
+<div><label><strong>Enter your password:</strong></label>
+    <input type="password" placeholder="*****" [(ngModel)]="user.password">
+</div>
+<div>
+    <label><strong>Enter your email:</strong></label>
+    <input type="text" placeholder="email" [(ngModel)]="user.email">
+</div>
+<div>
+    <label><strong>Enter your phone:</strong></label>
+    <input type="text" placeholder="phone" [(ngModel)]="user.phone">
+</div>
+<div>
+    <select [(ngModel)]="user.accountType">
+        <option value="buyer" selected>buyer</option>
+        <option value="seller">seller</option>
+    </select>
+</div>
+<div>
+    <button (click)="registerAccount()">Submit</button>
+</div>
