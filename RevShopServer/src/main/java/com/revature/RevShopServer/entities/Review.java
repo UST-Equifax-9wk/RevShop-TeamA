@@ -51,6 +51,15 @@ public class Review {
         this.description = description;
         this.timestamp = timestamp;
         this.product = product;
+        this.author = null;
+    }
+
+    public Review(Integer rating, String description, LocalDateTime timestamp, Product product, Buyer author) {
+        this.rating = rating;
+        this.description = description;
+        this.timestamp = timestamp;
+        this.product = product;
+        this.author = author;
     }
 
     //Getters and setters
