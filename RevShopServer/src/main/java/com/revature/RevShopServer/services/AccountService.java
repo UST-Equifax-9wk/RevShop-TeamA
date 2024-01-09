@@ -3,12 +3,15 @@ package com.revature.RevShopServer.services;
 import com.revature.RevShopServer.entities.Account;
 import com.revature.RevShopServer.entities.Buyer;
 import com.revature.RevShopServer.entities.Seller;
+import com.revature.RevShopServer.exceptions.ObjectNotFoundException;
 import com.revature.RevShopServer.repositories.AccountRepository;
 import com.revature.RevShopServer.repositories.BuyerRepository;
 import com.revature.RevShopServer.repositories.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -38,5 +41,12 @@ public class AccountService {
             sellerRepository.save(seller);
         }
         return result;
+    }
+
+    public Account getAccountByAccountId(int id) throws ObjectNotFoundException {
+        Optional<Account> account = accountRepository.findById(id);
+        if (account.isEmpty())
+            throw new ObjectNotFoundException("Cannot find account with that Id");
+        return account.get();
     }
 }

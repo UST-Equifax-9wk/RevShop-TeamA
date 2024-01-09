@@ -4,11 +4,11 @@ import com.revature.RevShopServer.enums.OrderStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 
-@Entity(name = "orders")
+@Entity
+@Table(name = "orders")
 public class Order {
     @Id
     @Column(name = "order_id")
@@ -24,33 +24,21 @@ public class Order {
     @NotNull
     private String billingAddress;
 
-    private LocalDateTime timestamp;
-
-    @NotNull
-    private BigDecimal amount;
+    private ZonedDateTime timestamp;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "buyer_id")
     private Buyer buyer;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sellers_id")
-    private Seller sellers;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
-    private Product product;
-
     public Order() {
     }
 
-    public Order(Long orderId, OrderStatus orderStatus, String shippingAddress, String billingAddress, LocalDateTime timestamp, BigDecimal amount) {
+    public Order(Long orderId, OrderStatus orderStatus, String shippingAddress, String billingAddress, ZonedDateTime timestamp) {
         this.orderId = orderId;
         this.orderStatus = orderStatus;
         this.shippingAddress = shippingAddress;
         this.billingAddress = billingAddress;
         this.timestamp = timestamp;
-        this.amount = amount;
     }
 
     public Long getOrderId() {
@@ -85,20 +73,12 @@ public class Order {
         this.billingAddress = billingAddress;
     }
 
-    public LocalDateTime getTimestamp() {
+    public ZonedDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(ZonedDateTime timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
     }
 
     @Override
@@ -109,7 +89,6 @@ public class Order {
                 ", shippingAddress='" + shippingAddress + '\'' +
                 ", billingAddress='" + billingAddress + '\'' +
                 ", timestamp=" + timestamp +
-                ", amount=" + amount +
                 '}';
     }
 }
