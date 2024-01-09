@@ -15,9 +15,9 @@ import { error } from 'console';
 })
 export class SendMessageButtonComponent {
   remoteService: RemoteService;
-  recipient = "roman.mazzoni@yahoo.com"
+
   newMessage: NewMessageDto = {
-    recipient:"roman.mazzoni@yahoo.com",
+    recipient:"roman.mazzoni@yahoo.com", 
     subject:"test email",
     message:"This is the email body"
   }

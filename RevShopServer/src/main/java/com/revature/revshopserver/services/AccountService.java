@@ -1,14 +1,19 @@
 package com.revature.revshopserver.services;
 
+
 import com.revature.revshopserver.entities.Account;
 import com.revature.revshopserver.entities.Buyer;
 import com.revature.revshopserver.entities.Seller;
+import com.revature.revshopserver.exceptions.ObjectNotFoundException;
 import com.revature.revshopserver.repositories.AccountRepository;
 import com.revature.revshopserver.repositories.BuyerRepository;
 import com.revature.revshopserver.repositories.SellerRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -38,6 +43,13 @@ public class AccountService {
             sellerRepository.save(seller);
         }
         return result;
+    }
+
+    public Account getAccountByAccountId(int id) throws ObjectNotFoundException {
+        Optional<Account> account = accountRepository.findById(id);
+        if (account.isEmpty())
+            throw new ObjectNotFoundException("Cannot find account with that Id");
+        return account.get();
     }
 
 }

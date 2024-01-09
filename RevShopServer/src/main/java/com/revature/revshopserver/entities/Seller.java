@@ -1,6 +1,9 @@
 package com.revature.revshopserver.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "sellers")
@@ -12,6 +15,10 @@ public class Seller {
     @OneToOne
     @JoinColumn(name = "account", nullable = false)
     private Account account;
+
+    @OneToMany(mappedBy= "seller", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
+    private Set<Product> products;
 
     public Seller(Integer sellerId, Account account) {
         this.sellerId = sellerId;
@@ -37,11 +44,11 @@ public class Seller {
         this.sellerId = sellerId;
     }
 
-    public Account getAccounts() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccounts(Account account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 }

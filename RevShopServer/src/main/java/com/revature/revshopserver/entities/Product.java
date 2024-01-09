@@ -1,6 +1,7 @@
 package com.revature.revshopserver.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
@@ -15,9 +16,6 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "product_id")
     private int productId;
-
-    @Column(name = "seller_id")
-    private int sellerId;
 
     @Column(name = "name")
     private String name;
@@ -44,6 +42,11 @@ public class Product {
     @JsonManagedReference
     private Set<Discount> discounts;
 
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
+    @JsonBackReference
+    private Seller seller;
+
     //Constructors
     public Product(String name){
         this.name = name;
@@ -63,13 +66,6 @@ public class Product {
         this.productId = productId;
     }
 
-    public int getSellerId() {
-        return sellerId;
-    }
-
-    public void setSellerId(int sellerId) {
-        this.sellerId = sellerId;
-    }
 
     public String getName() {
         return name;
@@ -125,5 +121,14 @@ public class Product {
 
     public void setDiscounts(Set<Discount> discounts) {
         this.discounts = discounts;
+    }
+
+
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
     }
 }
