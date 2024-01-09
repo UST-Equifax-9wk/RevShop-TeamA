@@ -1,35 +1,39 @@
 package com.revature.RevShopServer.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 
-@Entity(name = "reviews")
+@Entity
+@Table(name = "reviews")
 public class Review {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "review_id")
-    private int reviewId;
+    private Integer reviewId;
 
     @Positive(message = "You cannot rate something below 0!")
     @Max(10)
     @Column(name = "rating")
-    private float rating;
+    private Float rating;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "timestamp")
-    private String timeStamp;
+    private String timestamp;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     @JsonBackReference
     private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "buyer_id")
+    @JsonBackReference
+    private Buyer author;
 
     public Review(float rating){
         this.rating = rating;
@@ -44,7 +48,7 @@ public class Review {
         return reviewId;
     }
 
-    public void setReviewId(int reviewId) {
+    public void setReviewId(Integer reviewId) {
         this.reviewId = reviewId;
     }
 
@@ -52,7 +56,7 @@ public class Review {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(Float rating) {
         this.rating = rating;
     }
 
@@ -64,12 +68,12 @@ public class Review {
         this.description = description;
     }
 
-    public String getTimeStamp() {
-        return timeStamp;
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     public Product getProduct() {
@@ -78,5 +82,13 @@ public class Review {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Buyer getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Buyer author) {
+        this.author = author;
     }
 }
