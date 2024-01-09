@@ -21,7 +21,6 @@ export class RegistrationComponent {
   message = ""
   constructor(private remoteService:RemoteService){ }
   registerAccount(){
-    console.log(this.user);
     if(this.user.username == "" || this.user.password == "" || this.user.email == "" || this.user.phone == "")
     {
       this.message = "please make sure to fill out all parts of the form";
