@@ -31,6 +31,10 @@ public class Buyer {
         this.account = account;
     }
 
+    public Buyer(Account account) {
+        this.account = account;
+    }
+
     public Integer getBuyerId() {
         return buyerId;
     }
