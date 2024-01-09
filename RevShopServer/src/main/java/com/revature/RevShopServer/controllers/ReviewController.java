@@ -1,8 +1,6 @@
 package com.revature.RevShopServer.controllers;
 
 import com.revature.RevShopServer.dtos.ReviewDto;
-import com.revature.RevShopServer.entities.Buyer;
-import com.revature.RevShopServer.entities.Product;
 import com.revature.RevShopServer.entities.Review;
 import com.revature.RevShopServer.exceptions.ObjectNotFoundException;
 import com.revature.RevShopServer.services.ReviewService;
@@ -11,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.Set;
 
 @RestController
@@ -27,11 +23,11 @@ public class ReviewController {
 
     // TODO: adjust implementation once Product and Buyer are implemented fully
     @PostMapping(path = "/product/{product_id}")
-    public Review writeReview(@PathVariable(name = "product_id") Integer product_id,
+    public Review writeReview(@PathVariable(name = "product_id") Integer productId,
                               @RequestBody ReviewDto reviewDto) throws ObjectNotFoundException {
         // filler product and author for now, have to wait for implementation
         return reviewService.writeReview(
-            product_id, reviewDto
+            productId, reviewDto
         );
     }
 
