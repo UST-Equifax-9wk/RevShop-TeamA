@@ -4,15 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication(scanBasePackages = {"com.revature.RevShopServer.entities",
-		"com.revature.RevShopServer.controllers",
-		"com.revature.RevShopServer.config",
-		"com.revature.RevShopServer.services",
-		"com.revature.RevShopServer.repositories",
-		"com.revature.RevShopServer.dtos"},
+@SpringBootApplication(scanBasePackages = {"com.revature.revshopserver.entities",
+		"com.revature.revshopserver.controllers",
+		"com.revature.revshopserver.config",
+		"com.revature.revshopserver.services",
+		"com.revature.revshopserver.repositories"},
 		exclude = { SecurityAutoConfiguration.class })
-
-
 public class RevShopServerApplication {
 
 	public static void main(String[] args) {

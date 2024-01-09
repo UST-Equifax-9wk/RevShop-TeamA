@@ -38,10 +38,6 @@ public class Review {
     @JsonBackReference
     private Buyer author;
 
-    public Review(Integer rating){
-        this.rating = rating;
-    }
-
     public Review(){
 
     }
@@ -110,4 +106,5 @@ public class Review {
     public void setAuthor(Buyer author) {
         this.author = author;
     }
+
 }

@@ -16,4 +16,5 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
     @Query(value = "SELECT * FROM reviews WHERE buyer_id = :buyer_id", nativeQuery = true)
     Set<Review> findAllByBuyerId(@Param("buyer_id") Integer buyerId);
+
 }
