@@ -32,6 +32,15 @@ export class RemoteService {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     })
   }
+
+
+  saveUser(user:AccountDto){
+    return this.httpClient.post(this.baseUrl + "/register",JSON.stringify(user),{
+      observe: 'response',
+      withCredentials: true ,
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    })
+  }
 }
 export interface NewMessageDto{
   recipient:string
@@ -44,4 +53,11 @@ export interface NewProductDto{
   category:string
   price:number
   inventoryCount:number
+}
+export interface AccountDto{
+  username:string
+  password:string
+  email:string
+  phone:string
+  accountType:string
 }

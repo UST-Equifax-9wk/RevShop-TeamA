@@ -25,6 +25,10 @@ public class Seller {
         this.account = account;
     }
 
+    public Seller(Account account) {
+        this.account = account;
+    }
+
     public Seller(Integer sellerId) {
         this.sellerId = sellerId;
     }
