@@ -3,7 +3,10 @@ package com.revature.RevShopServer.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reviews")
@@ -14,19 +17,19 @@ public class Review {
     @Column(name = "review_id")
     private Integer reviewId;
 
-    @Positive(message = "You cannot rate something below 0!")
-    @Max(10)
+    @PositiveOrZero(message = "You cannot rate something below 0!")
+    @Max(5)
     @Column(name = "rating")
-    private Float rating;
+    private Integer rating;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "timestamp")
-    private String timestamp;
+    @Column(name = "timestamp", columnDefinition = "TIMESTAMP", nullable = false)
+    private LocalDateTime timestamp;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     @JsonBackReference
     private Product product;
 
@@ -35,12 +38,19 @@ public class Review {
     @JsonBackReference
     private Buyer author;
 
-    public Review(float rating){
+    public Review(Integer rating){
         this.rating = rating;
     }
 
     public Review(){
 
+    }
+
+    public Review(Integer rating, String description, LocalDateTime timestamp, Product product) {
+        this.rating = rating;
+        this.description = description;
+        this.timestamp = timestamp;
+        this.product = product;
     }
 
     //Getters and setters
@@ -56,7 +66,7 @@ public class Review {
         return rating;
     }
 
-    public void setRating(Float rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 
@@ -68,11 +78,11 @@ public class Review {
         this.description = description;
     }
 
-    public String getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
