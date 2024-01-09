@@ -26,7 +26,7 @@ export class RemoteService {
     })
   }
   registerNewProduct(product:NewProductDto, sellerName:string){
-    return this.httpClient.post(this.baseUrl + "/shopAccounts/" + sellerName + "/registerProduct", JSON.stringify(product),{
+    return this.httpClient.post(this.baseUrl + "/Products/" + sellerName + "/registerProduct", JSON.stringify(product),{
       observe: 'response',
       withCredentials: true ,
       headers: new HttpHeaders({'Content-Type': 'application/json'})

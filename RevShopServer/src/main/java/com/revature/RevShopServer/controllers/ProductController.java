@@ -17,7 +17,7 @@ public class ProductController {
     }
 
     @PostMapping("/{sellerName}/addProduct")
-    public Product addNewProduct(@RequestBody Product product){
+    public Product addNewProduct(@RequestBody Product product, @PathVariable String sellerName){
 
 
         return productService.saveProduct(product);
