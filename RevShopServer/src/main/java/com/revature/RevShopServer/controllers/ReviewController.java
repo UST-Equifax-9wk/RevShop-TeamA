@@ -31,10 +31,16 @@ public class ReviewController {
         );
     }
 
-    // TODO: adjust implementation later
+    // TODO: adjust implementation based on ProductController endpoints later
     @GetMapping(path = "/product/{product_id}/reviews")
-    public Set<Review> getAllReviews(@PathVariable(name = "product_id") Integer productId) {
-        return reviewService.getAllReviews(productId);
+    public Set<Review> getAllProductReviews(@PathVariable(name = "product_id") Integer productId) {
+        return reviewService.getAllProductReviews(productId);
+    }
+
+    // TODO: adjust implementation based on BuyerController endpoints later
+    @GetMapping(path = "/buyer/{buyer_id}/reviews")
+    public Set<Review> getAllBuyerReviews(@PathVariable(name = "buyer_id") Integer buyerId) {
+        return reviewService.getAllBuyerReviews(buyerId);
     }
 
     @ExceptionHandler(ObjectNotFoundException.class)

@@ -40,7 +40,11 @@ public class ReviewService {
         ));
     }
 
-    public Set<Review> getAllReviews(Integer productId) {
+    public Set<Review> getAllProductReviews(Integer productId) {
         return reviewRepository.findAllByProductId(productId);
+    }
+
+    public Set<Review> getAllBuyerReviews(Integer buyerId) {
+        return reviewRepository.findAllByBuyerId(buyerId);
     }
 }
