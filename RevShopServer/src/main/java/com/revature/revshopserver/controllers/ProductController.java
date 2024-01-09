@@ -5,6 +5,7 @@ import com.revature.revshopserver.exceptions.ObjectNotFoundException;
 import com.revature.revshopserver.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,5 +26,11 @@ public class ProductController {
 
 
         return productService.saveProduct(product, sellerId);
+    }
+
+    @ExceptionHandler(ObjectNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> internalErrorHandler(ObjectNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

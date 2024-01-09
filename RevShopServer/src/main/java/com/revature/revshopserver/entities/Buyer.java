@@ -1,20 +1,30 @@
 package com.revature.revshopserver.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "buyers")
 public class Buyer {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "buyer_id")
     private Integer buyerId;
-
+    @Column(name = "firstname")
+    private String firstname;
+    @Column(name = "lastname")
+    private String lastname;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
     private Account account;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
+    private Set<Review> reviews;
 
     public Buyer() {
     }

@@ -15,8 +15,8 @@ import java.util.Optional;
 @Service
 @Transactional(Transactional.TxType.REQUIRED)
 public class ProductService {
-    private ProductRepository productRepository;
-    private SellerRepository sellerRepository;
+    private final ProductRepository productRepository;
+    private final SellerRepository sellerRepository;
 
     @Autowired
     public ProductService(ProductRepository productRepository, SellerRepository sellerRepository) {
@@ -33,5 +33,13 @@ public class ProductService {
     }
     public List<Product> getAllProducts(){
         return productRepository.findAll();
+    }
+
+    public Product getById(Integer productId) throws ObjectNotFoundException {
+        Optional<Product> productLookup = productRepository.findById(productId);
+        if (productLookup.isPresent()) {
+            return productLookup.get();
+        }
+        throw new ObjectNotFoundException("Product ID not found in database!");
     }
 }

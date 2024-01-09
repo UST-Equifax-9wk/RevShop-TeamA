@@ -71,4 +71,22 @@ export interface NewDiscountDtio{
   discountPrice:number
   startDate:string
   endDate:string
+
+}
+
+export interface BuyerDto{
+  firstname:string
+  lastname:string
+  account:AccountDto
+}
+export interface OrderDto{
+  shippingAddress:string
+  billingAddress:string
+  timestamp:string
+  buyer?:BuyerDto
+}
+export interface OrderItemDto{
+  order:OrderDto
+  amount:number
+  price:number
 }
