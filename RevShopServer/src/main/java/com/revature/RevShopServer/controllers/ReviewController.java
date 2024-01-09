@@ -1,5 +1,7 @@
 package com.revature.RevShopServer.controllers;
 
+import com.revature.RevShopServer.dtos.ReviewDto;
+import com.revature.RevShopServer.entities.Buyer;
 import com.revature.RevShopServer.entities.Product;
 import com.revature.RevShopServer.entities.Review;
 import com.revature.RevShopServer.services.ReviewService;
@@ -21,14 +23,18 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    // this mapping will be subject to change once Product implementation is finalized
+    // this mapping will be subject to change once implementation is finalized for other parts
     @PostMapping(path = "/product/{product_id}/{buyer_id}")
     public Review writeReview(@PathVariable(name = "product_id") Integer product_id,
                               @PathVariable(name = "buyer_id") Integer buyer_id,
-                              @RequestBody RewiewDto reviewDto) {
-        // filler for now
+                              @RequestBody ReviewDto reviewDto) {
+        // filler product and author for now, have to wait for implementation
         return reviewService.writeReview(
-            new Review(1234, "description", LocalDateTime.now(), new Product())
+            new Review(reviewDto.getRating(),
+                    reviewDto.getDescription(),
+                    LocalDateTime.now(),
+                    new Product(),
+                    new Buyer())
         );
     }
 

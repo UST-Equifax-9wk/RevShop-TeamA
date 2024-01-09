@@ -12,7 +12,8 @@ import org.springframework.context.event.EventListener;
 		"com.revature.RevShopServer.controllers",
 		"com.revature.RevShopServer.config",
 		"com.revature.RevShopServer.services",
-		"com.revature.RevShopServer.repositories"},
+		"com.revature.RevShopServer.repositories",
+		"com.revature.RevShopServer.dtos"},
 		exclude = { SecurityAutoConfiguration.class })
 
 
