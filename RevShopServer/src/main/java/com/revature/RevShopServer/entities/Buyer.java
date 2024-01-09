@@ -18,7 +18,7 @@ public class Buyer {
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
     private Account account;
 
-    @OneToMany(mappedBy = "buyer", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private Set<Review> reviews;
 

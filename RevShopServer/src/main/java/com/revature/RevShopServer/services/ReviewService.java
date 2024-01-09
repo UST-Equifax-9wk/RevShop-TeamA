@@ -5,6 +5,8 @@ import com.revature.RevShopServer.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class ReviewService {
 
@@ -17,5 +19,9 @@ public class ReviewService {
 
     public Review writeReview(Review review) {
         return reviewRepository.save(review);
+    }
+
+    public Set<Review> getAllReviews(Integer productId) {
+        return reviewRepository.findAllByProductId(productId);
     }
 }

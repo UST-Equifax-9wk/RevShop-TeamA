@@ -6,12 +6,11 @@ import com.revature.RevShopServer.entities.Product;
 import com.revature.RevShopServer.entities.Review;
 import com.revature.RevShopServer.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.Set;
 
 @RestController
 public class ReviewController {
@@ -23,7 +22,7 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    // this mapping will be subject to change once implementation is finalized for other parts
+    // TODO: adjust implementation once Product and Buyer are implemented fully
     @PostMapping(path = "/product/{product_id}/{buyer_id}")
     public Review writeReview(@PathVariable(name = "product_id") Integer product_id,
                               @PathVariable(name = "buyer_id") Integer buyer_id,
@@ -32,10 +31,16 @@ public class ReviewController {
         return reviewService.writeReview(
             new Review(reviewDto.getRating(),
                     reviewDto.getDescription(),
-                    LocalDateTime.now(),
+                    ZonedDateTime.now(),
                     new Product(),
                     new Buyer())
         );
+    }
+
+    // TODO: adjust implementation later
+    @GetMapping(path = "/product/{product_id}/reviews")
+    public Set<Review> getAllReviews(@PathVariable(name = "product_id") Integer productId) {
+        return reviewService.getAllReviews(productId);
     }
 
 }

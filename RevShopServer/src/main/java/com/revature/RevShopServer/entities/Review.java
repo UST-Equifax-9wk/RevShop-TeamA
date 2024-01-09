@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.PositiveOrZero;
-import org.springframework.cglib.core.Local;
-
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "reviews")
@@ -25,8 +23,10 @@ public class Review {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "timestamp", columnDefinition = "TIMESTAMP", nullable = false)
-    private LocalDateTime timestamp;
+    @Column(name = "timestamp",
+            columnDefinition = "timestamp USING \"timestamp\"::timestamp(6) with time zone",
+            nullable = false)
+    private ZonedDateTime timestamp;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
@@ -46,7 +46,7 @@ public class Review {
 
     }
 
-    public Review(Integer rating, String description, LocalDateTime timestamp, Product product) {
+    public Review(Integer rating, String description, ZonedDateTime timestamp, Product product) {
         this.rating = rating;
         this.description = description;
         this.timestamp = timestamp;
@@ -54,7 +54,7 @@ public class Review {
         this.author = null;
     }
 
-    public Review(Integer rating, String description, LocalDateTime timestamp, Product product, Buyer author) {
+    public Review(Integer rating, String description, ZonedDateTime timestamp, Product product, Buyer author) {
         this.rating = rating;
         this.description = description;
         this.timestamp = timestamp;
@@ -87,11 +87,11 @@ public class Review {
         this.description = description;
     }
 
-    public LocalDateTime getTimestamp() {
+    public ZonedDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(ZonedDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
