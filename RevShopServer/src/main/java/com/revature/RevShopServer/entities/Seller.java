@@ -44,11 +44,11 @@ public class Seller {
         this.sellerId = sellerId;
     }
 
-    public Account getAccounts() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccounts(Account account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 }
