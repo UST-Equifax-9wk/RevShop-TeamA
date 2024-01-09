@@ -23,4 +23,8 @@ public class CartItemService {
         return cartItemRepository.findAllByBuyerId(buyerId);
     }
 
+    public void clearCart(Integer buyerId) {
+        cartItemRepository.deleteAllByBuyerId(buyerId);
+    }
+
 }
