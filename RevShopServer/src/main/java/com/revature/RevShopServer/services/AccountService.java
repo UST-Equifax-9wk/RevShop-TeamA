@@ -6,16 +6,22 @@ import com.revature.RevShopServer.entities.Seller;
 import com.revature.RevShopServer.repositories.AccountRepository;
 import com.revature.RevShopServer.repositories.BuyerRepository;
 import com.revature.RevShopServer.repositories.SellerRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
-public class AccountService {
+@Transactional
+public class AccountService{
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final BuyerRepository buyerRepository;
     private final SellerRepository sellerRepository;
+
     @Autowired
     public AccountService(AccountRepository accountRepository, PasswordEncoder passwordEncoder, BuyerRepository buyerRepository, SellerRepository sellerRepository) {
         this.passwordEncoder = passwordEncoder;
@@ -39,4 +45,13 @@ public class AccountService {
         }
         return result;
     }
+
+    public List<Account> getAllUsers() {
+        return accountRepository.findAll();
+    }
+
+    public Optional<Account> findByUsername(String username) {
+        return accountRepository.findByUsername(username);
+    }
+
 }
