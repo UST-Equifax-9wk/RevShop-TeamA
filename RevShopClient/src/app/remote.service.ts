@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, catchError } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class RemoteService {
     withCredentials: true,
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  constructor(httpClient: HttpClient) {
+  constructor(httpClient: HttpClient, cookieService: CookieService) {
     this.httpClient = httpClient;
     this.baseUrl = 'http://localhost:8080';
   }
@@ -55,6 +56,24 @@ export class RemoteService {
     })
   }
 
+  login(authDto: LoginDto): Observable<HttpResponse<Object>> {
+    return this.httpClient.post(this.baseUrl + "/login", JSON.stringify(authDto),
+    {
+      observe: 'response', 
+      withCredentials: true ,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })}
+    )
+  }
+
+  decodeToken(token: string) {
+    const payload = token.split('.')[1];
+    const decodedPayload = atob(payload);
+    const payloadObj = JSON.parse(decodedPayload);
+    const uName = payloadObj.sub;
+    return uName;
+  }
 
   saveUser(user: AccountDto) {
     return this.httpClient.post(
@@ -135,4 +154,8 @@ export interface OrderItemDto {
   order: OrderDto;
   amount: number;
   price: number;
+}
+export interface LoginDto {
+  username: String
+  password: String
 }
