@@ -14,7 +14,7 @@ public class Seller {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sellerId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account", nullable = false)
     private Account account;
 

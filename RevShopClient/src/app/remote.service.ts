@@ -31,7 +31,7 @@ export class RemoteService {
   }
   registerNewProduct(product: NewProductDto, sellerId: number) {
     return this.httpClient.post(
-      this.baseUrl + '/Products/' + sellerId + '/registerProduct',
+      this.baseUrl + '/Products/' + sellerId + '/addProduct',
       JSON.stringify(product),
       {
         observe: 'response',
@@ -40,7 +40,13 @@ export class RemoteService {
       }
     );
   }
-
+  getAllProducts() {
+    return this.httpClient.get(this.baseUrl + '/Products/getProducts', {
+      observe: 'response',
+      withCredentials: true,
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
+  }
   saveUser(user: AccountDto) {
     return this.httpClient.post(
       this.baseUrl + '/register',
@@ -52,7 +58,7 @@ export class RemoteService {
       }
     );
   }
-  saveProduct(order: OrderDto) {
+  saveOrder(order: OrderDto) {
     return this.httpClient.post(
       this.baseUrl + '/setorder',
       JSON.stringify(order),
@@ -90,13 +96,17 @@ export interface NewMessageDto{
   subject:string
   message:string
 }
-
-export interface NewProductDto{
-  name:string
-  description:string
-  category:string
-  price:number
-  inventoryCount:number
+export interface NewProductDto {
+  name: string;
+  description: string;
+  category: string;
+  price: number;
+  inventoryCount: number;
+  seller?:SellerDto;
+}
+export interface SellerDto{
+  account:AccountDto;
+  sellerId:number;
 }
 
 export interface AccountDto{
@@ -112,12 +122,13 @@ export interface BuyerDto{
   lastname:string
   account:AccountDto
 }
-
-export interface OrderDto{
-  shippingAddress:string
-  billingAddress:string
-  timestamp:string
-  buyer?:BuyerDto
+export interface OrderDto {
+  orderId?: string;
+  shippingAddress: string;
+  billingAddress: string;
+  timestamp?: string;
+  buyer?: BuyerDto;
+  orderStatus: string;
 }
 
 export interface OrderItemDto{
