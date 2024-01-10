@@ -1,6 +1,10 @@
 package com.revature.revshopserver.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
+
+
 
 @Entity
 @Table(name = "cart_items")
@@ -8,14 +12,16 @@ public class CartItem {
     @Id
     @Column(name = "cart_item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cartItemId;
+    private Integer cartItemId;
 
     // cart items should always be associated with a buyer
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "buyer_id", nullable = false)
     private Buyer buyer;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
@@ -31,18 +37,18 @@ public class CartItem {
         this.quantity = quantity;
     }
 
-    public CartItem(Long cartItemId, Buyer buyer, Product product, Integer quantity) {
+    public CartItem(Integer cartItemId, Buyer buyer, Product product, Integer quantity) {
         this.cartItemId = cartItemId;
         this.buyer = buyer;
         this.product = product;
         this.quantity = quantity;
     }
 
-    public Long getCartItemId() {
+    public Integer getCartItemId() {
         return cartItemId;
     }
 
-    public void setCartItemId(Long cartItemId) {
+    public void setCartItemId(Integer cartItemId) {
         this.cartItemId = cartItemId;
     }
 
