@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping(path = "/Products")
@@ -27,6 +26,8 @@ public class ProductController {
     @PostMapping("/{sellerId}/addProduct")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Product addNewProduct(@RequestBody Product product, @PathVariable int sellerId) throws ObjectNotFoundException {
+
+
         return productService.saveProduct(product, sellerId);
     }
     @GetMapping("/getProducts")
@@ -34,6 +35,7 @@ public class ProductController {
     public List<ProductDto> getAllProducts(){
         return productService.getAllProducts();
     }
+
     @ExceptionHandler(ObjectNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> internalErrorHandler(ObjectNotFoundException e) {

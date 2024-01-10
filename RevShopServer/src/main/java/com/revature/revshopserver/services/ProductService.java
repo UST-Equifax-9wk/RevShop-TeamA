@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional(Transactional.TxType.REQUIRED)
@@ -48,5 +49,9 @@ public class ProductService {
             return productLookup.get();
         }
         throw new ObjectNotFoundException("Product ID not found in database!");
+    }
+
+    public Set<Product> getAllProductsBySellerId(Integer sellerId){
+        return productRepository.findAllBySellerId(sellerId);
     }
 }
