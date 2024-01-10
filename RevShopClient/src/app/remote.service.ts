@@ -47,6 +47,34 @@ export class RemoteService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
   }
+
+  registerNewDiscount(product:NewDiscountDto, productId:number){
+    return this.httpClient.post(this.baseUrl + "/Discounts/" + productId + "/newDiscount", JSON.stringify(product),{
+      observe: 'response',
+      withCredentials: true ,
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    })
+  }
+
+  login(authDto: LoginDto): Observable<HttpResponse<Object>> {
+    return this.httpClient.post(this.baseUrl + "/login", JSON.stringify(authDto),
+    {
+      observe: 'response', 
+      withCredentials: true ,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })}
+    )
+  }
+
+  decodeToken(token: string) {
+    const payload = token.split('.')[1];
+    const decodedPayload = atob(payload);
+    const payloadObj = JSON.parse(decodedPayload);
+    const uName = payloadObj.sub;
+    return uName;
+  }
+
   saveUser(user: AccountDto) {
     return this.httpClient.post(
       this.baseUrl + '/register',
@@ -69,32 +97,19 @@ export class RemoteService {
       }
     );
   }
-  
-  login(authDto: LoginDto): Observable<HttpResponse<Object>> {
-    return this.httpClient.post(this.baseUrl + "/login", JSON.stringify(authDto),
-    {
-      observe: 'response', 
+  uploadPicutre(file:FormData){
+    return this.httpClient.post(this.baseUrl + "/images/newImage",JSON.stringify(file),{
+      observe: 'response',
       withCredentials: true ,
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })}
-    )
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    })
   }
-
-  decodeToken(token: string) {
-    const payload = token.split('.')[1];
-    const decodedPayload = atob(payload);
-    const payloadObj = JSON.parse(decodedPayload);
-    const uName = payloadObj.sub;
-    return uName;
-  }
-
+  //Comment to commit and push
 }
-
-export interface NewMessageDto{
-  recipient:string
-  subject:string
-  message:string
+export interface NewMessageDto {
+  recipient: string;
+  subject: string;
+  message: string;
 }
 export interface NewProductDto {
   name: string;
@@ -108,19 +123,29 @@ export interface SellerDto{
   account:AccountDto;
   sellerId:number;
 }
+export interface NewDiscountDto{
+  discountPrice:number
+  startDate:string
+  endDate:string
 
-export interface AccountDto{
-  username:string
-  password:string
-  email:string
-  phone:string
-  accountType:string
 }
 
 export interface BuyerDto{
   firstname:string
   lastname:string
   account:AccountDto
+}
+export interface AccountDto {
+  username: string;
+  password: string;
+  email: string;
+  phone: string;
+  accountType: string;
+}
+export interface BuyerDto {
+  firstname: string;
+  lastname: string;
+  account: AccountDto;
 }
 export interface OrderDto {
   orderId?: string;
@@ -130,13 +155,11 @@ export interface OrderDto {
   buyer?: BuyerDto;
   orderStatus: string;
 }
-
-export interface OrderItemDto{
-  order:OrderDto
-  amount:number
-  price:number
+export interface OrderItemDto {
+  order: OrderDto;
+  amount: number;
+  price: number;
 }
-
 export interface LoginDto {
   username: String
   password: String
