@@ -31,12 +31,12 @@ public class AccountService {
     {
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         Account result = accountRepository.save(account);
-        if(result.getAccountType().equals("buyer"))
+        if("BUYER".equalsIgnoreCase(result.getAccountType().name()))
         {
             Buyer buyer = new Buyer(result);
             buyerRepository.save(buyer);
         }
-        else if(result.getAccountType().equals("seller"))
+        else if("SELLER".equalsIgnoreCase(result.getAccountType().name()))
         {
             Seller seller = new Seller(result);
             sellerRepository.save(seller);

@@ -14,7 +14,7 @@ export class RemoteService {
     withCredentials:true,
     headers: new HttpHeaders({'Content-Type':'application/json'})
   }
-  constructor(httpClient: HttpClient) { 
+  constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
     this.baseUrl = "http://localhost:8080"
   }
@@ -26,29 +26,16 @@ export class RemoteService {
     })
   }
   registerNewProduct(product:NewProductDto, sellerId:number){
-    return this.httpClient.post(this.baseUrl + "/Products/" + sellerId + "/addProduct", JSON.stringify(product),{
-      observe: 'response',
-      withCredentials: true ,
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    })
-  }
-  registerNewDiscount(product:NewDiscountDto, productId:number){
-    return this.httpClient.post(this.baseUrl + "/Discounts/" + productId + "/newDiscount", JSON.stringify(product),{
+    return this.httpClient.post(this.baseUrl + "/Products/" + sellerId + "/registerProduct", JSON.stringify(product),{
       observe: 'response',
       withCredentials: true ,
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     })
   }
 
+
   saveUser(user:AccountDto){
     return this.httpClient.post(this.baseUrl + "/register",JSON.stringify(user),{
-      observe: 'response',
-      withCredentials: true ,
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    })
-  }
-  uploadPicutre(file:FormData){
-    return this.httpClient.post(this.baseUrl + "/images/newImage",JSON.stringify(file),{
       observe: 'response',
       withCredentials: true ,
       headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -74,13 +61,6 @@ export interface AccountDto{
   phone:string
   accountType:string
 }
-export interface NewDiscountDto{
-  discountPrice:number
-  startDate:string
-  endDate:string
-
-}
-
 export interface BuyerDto{
   firstname:string
   lastname:string

@@ -35,7 +35,7 @@ public class Product {
     private int inventoryCount;
 
     @OneToMany(mappedBy= "product", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonManagedReference(value = "reviews")
     private Set<Review> reviews;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST)
