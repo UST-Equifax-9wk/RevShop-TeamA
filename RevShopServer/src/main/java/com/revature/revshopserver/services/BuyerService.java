@@ -1,12 +1,13 @@
 package com.revature.revshopserver.services;
 
 import com.revature.revshopserver.entities.Buyer;
+import com.revature.revshopserver.exceptions.ObjectNotFoundException;
 import com.revature.revshopserver.repositories.BuyerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -22,7 +23,14 @@ public class BuyerService {
 
     // want to use a list instead of Set, so I can use default findAll
     public Set<Buyer> getAllBuyers() {
-        return this.buyerRepository.findAllBuyers();
+        return buyerRepository.findAllBuyers();
     }
 
+    public Buyer getBuyerById(Integer buyerId) throws ObjectNotFoundException {
+        Optional<Buyer> buyerLookup = buyerRepository.findById(buyerId);
+        if (buyerLookup.isEmpty()) {
+            throw new ObjectNotFoundException("Buyer not found in database!");
+        }
+        return buyerLookup.get();
+    }
 }
