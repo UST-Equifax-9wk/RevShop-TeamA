@@ -32,7 +32,7 @@ export class RemoteService {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     })
   }
-  registerNewDiscount(product:NewProductDto, productId:number){
+  registerNewDiscount(product:NewDiscountDto, productId:number){
     return this.httpClient.post(this.baseUrl + "/Discounts/" + productId + "/newDiscount", JSON.stringify(product),{
       observe: 'response',
       withCredentials: true ,
@@ -67,7 +67,7 @@ export interface AccountDto{
   phone:string
   accountType:string
 }
-export interface NewDiscountDtio{
+export interface NewDiscountDto{
   discountPrice:number
   startDate:string
   endDate:string

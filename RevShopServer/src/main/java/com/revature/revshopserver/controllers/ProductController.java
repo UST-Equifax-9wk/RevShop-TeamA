@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/Products")
 @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
@@ -23,9 +25,12 @@ public class ProductController {
     @PostMapping("/{sellerId}/addProduct")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Product addNewProduct(@RequestBody Product product, @PathVariable int sellerId) throws ObjectNotFoundException {
-
-
         return productService.saveProduct(product, sellerId);
+    }
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Product> getAllProducts(){
+        return productService.getAllProducts();
     }
 
     @ExceptionHandler(ObjectNotFoundException.class)

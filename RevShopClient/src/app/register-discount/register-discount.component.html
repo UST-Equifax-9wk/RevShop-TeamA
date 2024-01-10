@@ -1,1 +1,17 @@
-<p>register-discount works!</p>
+<h2>Register a new discount</h2>
+
+<label>Product description:</label>
+<input type="number" id = desc [(ngModel)]="newDiscount.discountPrice">
+<br>
+<label>Category:</label>
+<input type="text" id = category [(ngModel)]="newDiscount.startDate">
+<br>
+<label>Price:</label>
+<input type="text" id = price [(ngModel)] = "newDiscount.endDate">
+<br>
+
+<button (click)="registerProduct()" *ngIf="newDiscount.discountPrice != 0 && newDiscount.startDate != '' && newDiscount.endDate != '' ; else dullButton">Add product</button>
+<ng-template #dullButton>
+    <button disabled="true">Add product</button>
+</ng-template>
+<br>

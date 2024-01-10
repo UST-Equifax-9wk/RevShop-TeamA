@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional(Transactional.TxType.REQUIRED)
@@ -30,5 +31,9 @@ public class DiscountService {
             throw new ObjectNotFoundException("Could not find a product with that id");
         discount.setProduct(product.get());
         return discountRepository.save(discount);
+    }
+
+    public Set<Discount> getDiscountByProductId(Integer id){
+        return discountRepository.findAllByProductId(id);
     }
 }
