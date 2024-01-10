@@ -1,5 +1,6 @@
 package com.revature.revshopserver.controllers;
 
+import com.revature.revshopserver.dtos.ProductDto;
 import com.revature.revshopserver.entities.Product;
 import com.revature.revshopserver.exceptions.ObjectNotFoundException;
 import com.revature.revshopserver.services.ProductService;
@@ -7,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "/Products")
@@ -23,11 +27,13 @@ public class ProductController {
     @PostMapping("/{sellerId}/addProduct")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Product addNewProduct(@RequestBody Product product, @PathVariable int sellerId) throws ObjectNotFoundException {
-
-
         return productService.saveProduct(product, sellerId);
     }
-
+    @GetMapping("/getProducts")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ProductDto> getAllProducts(){
+        return productService.getAllProducts();
+    }
     @ExceptionHandler(ObjectNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> internalErrorHandler(ObjectNotFoundException e) {
