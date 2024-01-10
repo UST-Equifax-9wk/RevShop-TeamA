@@ -26,7 +26,7 @@ export class RemoteService {
     })
   }
   registerNewProduct(product:NewProductDto, sellerId:number){
-    return this.httpClient.post(this.baseUrl + "/Products/" + sellerId + "/registerProduct", JSON.stringify(product),{
+    return this.httpClient.post(this.baseUrl + "/Products/" + sellerId + "/addProduct", JSON.stringify(product),{
       observe: 'response',
       withCredentials: true ,
       headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -42,6 +42,13 @@ export class RemoteService {
 
   saveUser(user:AccountDto){
     return this.httpClient.post(this.baseUrl + "/register",JSON.stringify(user),{
+      observe: 'response',
+      withCredentials: true ,
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    })
+  }
+  uploadPicutre(file:FormData){
+    return this.httpClient.post(this.baseUrl + "/images/newImage",JSON.stringify(file),{
       observe: 'response',
       withCredentials: true ,
       headers: new HttpHeaders({'Content-Type': 'application/json'})
