@@ -51,7 +51,13 @@ public class Product {
     public Product(String name){
         this.name = name;
     }
-
+    public Product(String name, String description, String category, float price, int inventoryCount){
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.price = price;
+        this.inventoryCount = inventoryCount;
+    }
     public Product() {
 
     }
