@@ -1,25 +1,31 @@
-<div *ngIf="message!=''">{{message}}</div>
-<div>
-    <label><strong>Enter your username:</strong> </label>
-    <input type="text" placeholder="username" [(ngModel)]="user.username">
-</div>
-<div><label><strong>Enter your password:</strong></label>
-    <input type="password" placeholder="*****" [(ngModel)]="user.password">
-</div>
-<div>
-    <label><strong>Enter your email:</strong></label>
-    <input type="text" placeholder="email" [(ngModel)]="user.email">
-</div>
-<div>
-    <label><strong>Enter your phone:</strong></label>
-    <input type="text" placeholder="phone" [(ngModel)]="user.phone">
-</div>
-<div>
-    <select [(ngModel)]="user.accountType">
-        <option value="BUYER" selected>buyer</option>
-        <option value="SELLER">seller</option>
-    </select>
-</div>
-<div>
-    <button (click)="registerAccount()">Submit</button>
+<div class="register">
+    <div *ngIf="message!=''">{{message}}</div>
+    <div class="register-form">
+        <div class="form-group">
+            <label>Enter your username </label>
+            <input type="text" placeholder="username" [(ngModel)]="user.username">
+        </div>
+        <div class="form-group">
+            <label>Enter your password </label>
+            <input type="password" placeholder="*****" [(ngModel)]="user.password">
+        </div>
+        <div class="form-group">
+            <label>Enter your email </label>
+            <input type="text" placeholder="email" [(ngModel)]="user.email">
+        </div>
+        <div class="form-group">
+            <label>Enter your phone </label>
+            <input type="text" placeholder="phone" [(ngModel)]="user.phone">
+        </div>
+        <div class="form-group">
+            <select [(ngModel)]="user.accountType">
+                <option value="" disabled selected hidden>Please Choose...</option>
+                <option value="BUYER">buyer</option>
+                <option value="SELLER">seller</option>
+            </select>
+        </div>
+        <div>
+            <button (click)="registerAccount()">Submit</button>
+        </div>
+    </div>
 </div>

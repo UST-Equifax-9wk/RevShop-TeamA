@@ -1,16 +1,15 @@
-.payment {
+.login { 
     display: block;
     padding: 80px 20px 40px;
     max-width: 100%;
     margin: 0 auto;
 }
 
-.payment h2 {
+.login h2 {
     margin-bottom: 25px;
 }
 
-
-.payment-form {
+.login-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,12 +18,13 @@
 
 
 @media (min-width: 940px) and (max-width: 1199px) {
-    .payment {
+    .login {
         max-width: 50%;
     }
 }
+
 @media screen and (min-width: 1200px) {
-    .payment {
+    .login {
         max-width: 30%;
     }
 }

@@ -1,14 +1,25 @@
 <nav>
     <ul>
-        <li>
+        <!-- <li>
+            <a routerLink="home">Home</a>
+        </li> -->
+        <li *ngIf="!(authService.isLoggedIn | async)">
+            <a routerLink="/login">Login</a>
+        </li>
+        <li *ngIf="!(authService.isLoggedIn | async)">
             <a routerLink="/register">Register</a>
         </li>
-        <li>
+        <li *ngIf="authService.isLoggedIn | async">
+            <a routerLink="dashboard">Dashboard</a>
+        </li>
+        <li *ngIf="authService.isLoggedIn | async">
             <a routerLink="/payment">Checkout</a>
         </li>
         <li>
             <a routerLink="/addProduct">Add a product</a>
         </li>
+        <li *ngIf="authService.isLoggedIn | async">
+            <a routerLink="logout" (click)="logout()">Logout</a>
         <li>
             <a routerLink="/fileUpload">upload picture</a>
         </li>
