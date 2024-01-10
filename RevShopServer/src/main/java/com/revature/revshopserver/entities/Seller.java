@@ -1,5 +1,6 @@
 package com.revature.revshopserver.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -12,7 +13,8 @@ public class Seller {
     @Column(name = "seller_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sellerId;
-    @OneToOne
+
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account", nullable = false)
     private Account account;
 
