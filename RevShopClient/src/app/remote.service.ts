@@ -46,6 +46,16 @@ export class RemoteService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
   }
+
+  registerNewDiscount(product:NewDiscountDto, productId:number){
+    return this.httpClient.post(this.baseUrl + "/Discounts/" + productId + "/newDiscount", JSON.stringify(product),{
+      observe: 'response',
+      withCredentials: true ,
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    })
+  }
+
+
   saveUser(user: AccountDto) {
     return this.httpClient.post(
       this.baseUrl + '/register',
@@ -68,6 +78,14 @@ export class RemoteService {
       }
     );
   }
+  uploadPicutre(file:FormData){
+    return this.httpClient.post(this.baseUrl + "/images/newImage",JSON.stringify(file),{
+      observe: 'response',
+      withCredentials: true ,
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    })
+  }
+  //Comment to commit and push
 }
 export interface NewMessageDto {
   recipient: string;
@@ -86,17 +104,24 @@ export interface SellerDto{
   account:AccountDto;
   sellerId:number;
 }
+export interface NewDiscountDto{
+  discountPrice:number
+  startDate:string
+  endDate:string
+
+}
+
+export interface BuyerDto{
+  firstname:string
+  lastname:string
+  account:AccountDto
+}
 export interface AccountDto {
   username: string;
   password: string;
   email: string;
   phone: string;
   accountType: string;
-}
-export interface BuyerDto {
-  firstname: string;
-  lastname: string;
-  account: AccountDto;
 }
 export interface OrderDto {
   orderId?: string;
