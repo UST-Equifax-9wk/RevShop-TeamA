@@ -1,38 +1,83 @@
 package com.revature.revshopserver.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.revature.revshopserver.enums.AccountType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "accounts")
-public class Account {
+public class Account implements UserDetails {
     @Id
     @Column(name = "account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer accountId;
+
     @NotNull
     @Column(nullable = false, unique = true)
     private String username;
+
     @NotNull
     @Column(nullable = false, unique = true)
     private String password;
+
     @NotNull
     @Email
     @Size(min = 3, max = 50, message = "Email should be between 3 and 50 characters")
     @Column(nullable = false, unique = true)
     private String email;
+
     @NotNull
     @Size(min = 9, max = 15, message = "Phone should be between 9 and 15 characters")
     @Column(nullable = false, unique = true)
     private String phone;
-    @Column(nullable = false)
-    private String accountType;
 
-    public Account(Integer accountId, String username, String password, String email, String phone, String accountType) {
+    @NotNull
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
+
+
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(accountType.name()));
+    }
+
+    public Account(Integer accountId, String username, String password, String email, String phone, AccountType accountType) {
         this.accountId = accountId;
         this.username = username;
         this.password = password;
@@ -41,7 +86,7 @@ public class Account {
         this.accountType = accountType;
     }
 
-    public Account(String username, String password, String email, String phone, String accountType) {
+    public Account(String username, String password, String email, String phone, AccountType accountType) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -66,10 +111,6 @@ public class Account {
 
     public void setaccountId(Integer accountId) {
         this.accountId = accountId;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public void setUsername(String username) {
@@ -100,11 +141,11 @@ public class Account {
         this.phone = phone;
     }
 
-    public String getAccountType() {
+    public AccountType getAccountType() {
         return accountType;
     }
 
-    public void setAccountType(String accountType) {
+    public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
 
