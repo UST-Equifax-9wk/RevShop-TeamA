@@ -1,40 +1,44 @@
-<div>
-    <label><strong>First name</strong></label>
-    <input type="text" placeholder="firstname">
-</div>
-<div>
-    <label><strong>Last name</strong></label>
-    <input type="text" placeholder="lastname">
-</div>
-<div>
-    <label><strong>Country</strong></label>
-    <input type="text" placeholder="country" [(ngModel)]="country">
-</div>
-<div>
-    <label><strong>City</strong></label>
-    <input type="text" placeholder="city" [(ngModel)]="city">
-</div>
-<div>
-    <label><strong>StreetAddress</strong></label>
-    <input type="text" placeholder="streetaddress" [(ngModel)]="streetAddress">
-</div>
-<div>
-    <label><strong>ZipCode</strong></label>
-    <input type="text" placeholder="zipcode" [(ngModel)]="zipcode">
-</div>
-<!--TODO AUTOFILL IN? DO WE NEED TO RECORD THESE?-->
-<div>
-    <label><strong>Phone</strong></label>
-    <input type="text" placeholder="">
-</div>
-<div>
-    <label><strong>Email</strong></label>
-    <input type="text" placeholder="">
-</div>
-<button (click)="checkOut">Checkout</button>
-<!--TODO ADD A DROP DOWN TO CHOOSE A CARD IN DATABASE OR ENTER A NEW CARD AND ASK IF THEY WANT IT SAVED
-<div class="cardinfo">
-    <div>
-
+<div class="payment">
+    <div class="payment-form">
+        <div class="form-group">
+            <label>First name</label>
+            <input type="text" placeholder="firstname">
+        </div>
+        <div class="form-group">
+            <label>Last name</label>
+            <input type="text" placeholder="lastname">
+        </div>
+        <div class="form-group">
+            <label>Country</label>
+            <input type="text" placeholder="country" [(ngModel)]="country">
+        </div>
+        <div class="form-group">
+            <label>City</label>
+            <input type="text" placeholder="city" [(ngModel)]="city">
+        </div>
+        <div class="form-group">
+            <label>StreetAddress</label>
+            <input type="text" placeholder="streetaddress" [(ngModel)]="streetAddress">
+        </div>
+        <div class="form-group">
+            <label>ZipCode</label>
+            <input type="text" placeholder="zipcode" [(ngModel)]="zipcode">
+        </div>
+        <!--TODO AUTOFILL IN? DO WE NEED TO RECORD THESE?-->
+        <div class="form-group">
+            <label>Phone</label>
+            <input type="text" placeholder="">
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" placeholder="">
+        </div>
+        <button (click)="checkOut">Checkout</button>
+        <!--TODO ADD A DROP DOWN TO CHOOSE A CARD IN DATABASE OR ENTER A NEW CARD AND ASK IF THEY WANT IT SAVED
+        <div class="cardinfo">
+            <div>
+        
+            </div>
+        </div>-->
     </div>
-</div>-->
+</div>

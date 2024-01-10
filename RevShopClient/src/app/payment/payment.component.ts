@@ -14,6 +14,7 @@ export class PaymentComponent {
   order:OrderDto = {
     shippingAddress: '',
     billingAddress: '',
+    timestamp: ''
   };
   streetAddress : string = '';
   zipcode: string = '';
