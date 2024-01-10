@@ -36,14 +36,19 @@ public class CartItemService {
     public CartItem addToCart(Integer buyerId, CartItemDto cartItemDto) throws ObjectNotFoundException {
         Product product = productService.getById(cartItemDto.getProductId());
         Buyer buyer = buyerService.getBuyerById(buyerId);
-        return cartItemRepository.save(new CartItem(
+        CartItem out =  cartItemRepository.save(new CartItem(
                 buyer,
                 product,
                 cartItemDto.getQuantity()
         ));
+        cartItemRepository.aggregate();
+        return out;
     }
     public void clearCart(Integer buyerId) {
         cartItemRepository.deleteAllByBuyerId(buyerId);
     }
 
+    public void aggregateCartItems() {
+        cartItemRepository.aggregate();
+    }
 }
