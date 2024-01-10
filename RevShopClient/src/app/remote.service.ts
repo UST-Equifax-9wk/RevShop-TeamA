@@ -62,6 +62,14 @@ export class RemoteService {
       }
     );
   }
+
+  getCart(buyerId: number) {
+    return this.httpClient.get(this.baseUrl + `/buyer/${buyerId}/cart`, {
+      observe: 'response',
+      withCredentials: true ,
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    })
+  }
 }
 export interface NewMessageDto {
   recipient: string;

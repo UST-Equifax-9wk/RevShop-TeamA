@@ -10,13 +10,14 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartItemId;
 
+    // cart items should always be associated with a buyer
     @ManyToOne
-    @JoinColumn(name = "buyer_id")
+    @JoinColumn(name = "buyer_id", nullable = false)
     private Buyer buyer;
 
     @ManyToOne
-    @JoinColumn(name = "sellers_id")
-    private Seller seller;
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
     @Column(nullable = false)
     private Integer quantity;
@@ -24,8 +25,16 @@ public class CartItem {
     public CartItem() {
     }
 
-    public CartItem(Long cartItemId, Integer quantity) {
+    public CartItem(Buyer buyer, Product product, Integer quantity) {
+        this.buyer = buyer;
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+    public CartItem(Long cartItemId, Buyer buyer, Product product, Integer quantity) {
         this.cartItemId = cartItemId;
+        this.buyer = buyer;
+        this.product = product;
         this.quantity = quantity;
     }
 
@@ -35,6 +44,22 @@ public class CartItem {
 
     public void setCartItemId(Long cartItemId) {
         this.cartItemId = cartItemId;
+    }
+
+    public Buyer getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(Buyer buyer) {
+        this.buyer = buyer;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Integer getQuantity() {
@@ -49,6 +74,8 @@ public class CartItem {
     public String toString() {
         return "CartItem{" +
                 "cartItemId=" + cartItemId +
+                ", buyer=" + buyer +
+                ", product=" + product +
                 ", quantity=" + quantity +
                 '}';
     }
