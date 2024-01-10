@@ -45,7 +45,7 @@ public class Account implements UserDetails {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
-    
+
 
     @Override
     public String getUsername() {
