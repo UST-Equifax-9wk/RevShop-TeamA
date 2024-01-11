@@ -15,7 +15,10 @@
         <li *ngIf="authService.isLoggedIn | async">
             <a routerLink="/payment">Checkout</a>
         </li>
-        <li>
+        <li *ngIf="authService.isLoggedIn | async">
+            <a routerLink="/cart">Cart</a>
+        </li>
+        <li *ngIf="authService.isLoggedIn | async">
             <a routerLink="/addProduct">Add a product</a>
         </li>
         <li *ngIf="authService.isLoggedIn | async">
