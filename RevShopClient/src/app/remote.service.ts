@@ -151,10 +151,11 @@ export interface AccountDto {
   phone: string;
   accountType: string;
 }
-export interface BuyerDto {
-  firstname: string;
-  lastname: string;
-  account: AccountDto;
+export interface CartItemDto {
+  cartItemId: number,
+  productId: number,
+  name: string,
+  quantity: number
 }
 export interface OrderDto {
   orderId?: string;
