@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'app-login',
@@ -19,12 +20,16 @@ export class LoginComponent {
   username: string
   password: string
   remoteService: RemoteService
+  sessionService: SessionService
 
-  constructor(router: Router, remoteService: RemoteService, private cookieService: CookieService, private authService: AuthService) {
+  constructor(router: Router, remoteService: RemoteService, sessionService: SessionService,
+    private cookieService: CookieService, 
+    private authService: AuthService) {
     this.router = router
     this.username = ""
     this.password = ""
     this.remoteService = remoteService
+    this.sessionService = sessionService;
     this.authService = authService;
   }
   
@@ -36,6 +41,9 @@ export class LoginComponent {
         let loginData = data.body as LoginResponse;
         let token = loginData?.token;
         this.cookieService.set('token', token);
+        // fetch the data and store in the current session
+        this.sessionService.updateSession(
+          this.remoteService.decodeToken(this.cookieService.get("token")));
         console.log(data);
         this.authService.login();
         this.router.navigate(["/dashboard"]);

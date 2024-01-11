@@ -4,6 +4,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SessionService } from '../session.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -18,16 +20,14 @@ export class CartComponent {
   remoteService: RemoteService;
   cart: CartItemDto[];
 
-  constructor(remoteService: RemoteService, private cookieService: CookieService) {
+  constructor(remoteService: RemoteService, 
+    private router: Router,
+    private sessionService: SessionService, 
+    private cookieService: CookieService) {
     this.remoteService = remoteService;
 
-    // fetch the token stored as a cookie from LoginComponent
-    let tokenData = this.remoteService.decodeToken(this.cookieService.get('token'));
-    const accountType = tokenData.accountType;
-
     this.cart = [];
-    // constant value for now, want to be able to retrieve the actual buyerId somehow
-    const buyerId = tokenData.specId;
+    const buyerId = sessionService.specificId;
     this.remoteService.getCart(buyerId)
     .subscribe({
       next: (data) => {
@@ -38,6 +38,7 @@ export class CartComponent {
       error: (error: HttpErrorResponse) => {
         alert("Cart could not be retrieved!");
         console.log(error.error);
+        router.navigate(["/"]);
       }
     });
   }
