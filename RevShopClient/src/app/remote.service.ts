@@ -98,11 +98,20 @@ export class RemoteService {
     );
   }
   uploadPicutre(file:FormData){
-    return this.httpClient.post(this.baseUrl + "/images/newImage",JSON.stringify(file),{
-      observe: 'response',
-      withCredentials: true ,
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    return this.httpClient.post(this.baseUrl + "/images/newImage",file,{
+      reportProgress: true,
+      withCredentials: true,
+      observe:'events'
     })
+  }
+  downloadImage(imageName:string){
+  return this.httpClient.get(this.baseUrl + '/images/' + imageName,
+       {
+          observe: 'response',
+          withCredentials: true,
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        }
+      );
   }
   //Comment to commit and push
 }

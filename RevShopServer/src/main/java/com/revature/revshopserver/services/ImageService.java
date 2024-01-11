@@ -31,11 +31,30 @@ public class ImageService {
             return "File uploaded with name " + file.getOriginalFilename();
         return null;
     }
-    public byte[] downloadImage(String fileName) throws ObjectNotFoundException {
+    public ImageData downloadImageWithName(String fileName) throws ObjectNotFoundException {
+        //System.out.println("time to get that image from the repository");
         Optional<ImageData> imageData = imageRepository.findByName(fileName);
         if (imageData.isEmpty())
             throw new ObjectNotFoundException("Cannot find an image with that name!");
-        return ImageUtils.decompressImage(imageData.get().getImageData());
+        //System.out.println("got the image, decompressing");
+        return ImageData.builder()
+                .name(imageData.get().getName())
+                .type(imageData.get().getType())
+                .imageData(ImageUtils.decompressImage(imageData.get().getImageData())).build();
+        //System.out.println("retruning image all the way up!");
+        //System.out.println();
+        //return imageData2;
+    }
+    public ImageData downloadImageWithId(Integer imgId) throws ObjectNotFoundException {
+        Optional<ImageData> imageData = imageRepository.findById(imgId);
+        if (imageData.isEmpty())
+            throw new ObjectNotFoundException("Cannot find an image with that Id!");
+        return ImageData.builder()
+                .name(imageData.get().getName())
+                .type(imageData.get().getType())
+                .imageData(ImageUtils.decompressImage(imageData.get().getImageData())).build();
+        //ImageUtils.decompressImage(imageData.get().getImageData());
+        //return imageData2;
     }
     //any changes test
 }

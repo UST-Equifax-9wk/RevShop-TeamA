@@ -24,13 +24,12 @@ public class Review {
     private String description;
 
     @Column(name = "timestamp",
-            columnDefinition = "timestamp USING \"timestamp\"::timestamp(6) with time zone",
             nullable = false)
     private ZonedDateTime timestamp;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "reviews")
     private Product product;
 
     @ManyToOne

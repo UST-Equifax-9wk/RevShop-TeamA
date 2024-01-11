@@ -1,5 +1,6 @@
 package com.revature.revshopserver.controllers;
 
+import com.revature.revshopserver.entities.ImageData;
 import com.revature.revshopserver.exceptions.ObjectNotFoundException;
 import com.revature.revshopserver.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +24,22 @@ public class ImageController {
     }
 
     @PostMapping("/newImage")
-    public ResponseEntity<?> uploadImage(@RequestParam("image")MultipartFile file) throws IOException {
+    public ResponseEntity<?> uploadImage(@RequestParam("imageFile")MultipartFile file) throws IOException {
+
         String uploadImage = imageService.uploadImage(file);
         return ResponseEntity.status(HttpStatus.OK).body(uploadImage);
     }
 
     @GetMapping("/{fileName}")
-    public ResponseEntity<?> downloadImage(@PathVariable String fileName) throws ObjectNotFoundException {
-        byte[] imageData = imageService.downloadImage(fileName);
-        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(imageData);
+    public ImageData downloadImage(@PathVariable String fileName) throws ObjectNotFoundException {
+        System.out.println("getting that image from service");
+        return imageService.downloadImageWithName(fileName);
+        //return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(imageData);
+    }
+    @GetMapping("/id/{fileId}")
+    public ImageData downloadImage(@PathVariable Integer fileId) throws ObjectNotFoundException {
+        return imageService.downloadImageWithId(fileId);
+        //return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(imageData);
     }
 
     @ExceptionHandler(ObjectNotFoundException.class)

@@ -14,6 +14,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ImageData {
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product", nullable = false)
+    private Product product;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,5 +29,7 @@ public class ImageData {
     @Lob
     @Column(name = "image_data", length = 1000)
     private byte[] imageData;
+
+
 
 }
