@@ -71,8 +71,12 @@ export class RemoteService {
     const payload = token.split('.')[1];
     const decodedPayload = atob(payload);
     const payloadObj = JSON.parse(decodedPayload);
+    console.log('payloadobj', payloadObj);
     const uName = payloadObj.sub;
-    return uName;
+    const accountType = payloadObj.accountType[0].authority;
+    console.log("uName", uName);
+    console.log("accountType", accountType);
+    return {uName, accountType};
   }
 
   saveUser(user: AccountDto) {
