@@ -16,19 +16,25 @@ public class Buyer {
     @Column(name = "buyer_id")
     private Integer buyerId;
 
+    /*
     @Column(name = "firstname")
     private String firstname;
 
     @Column(name = "lastname")
     private String lastname;
+    */
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
     private Account account;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private Set<Review> reviews;
+
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
+    private Set<CartItem> cart;
 
     public Buyer() {
     }
@@ -71,4 +77,6 @@ public class Buyer {
     public int hashCode() {
         return Objects.hash(buyerId, account);
     }
+
+
 }
