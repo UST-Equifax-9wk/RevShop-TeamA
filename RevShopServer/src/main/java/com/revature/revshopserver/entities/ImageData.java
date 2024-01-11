@@ -14,9 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ImageData {
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product", nullable = false)
-    private Product product;
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
