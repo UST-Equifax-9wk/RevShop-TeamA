@@ -16,24 +16,18 @@ export class CartComponent {
 
   // only want to load cart from repository when page is loaded for the session, otherwise use sessionStorage
   remoteService: RemoteService;
-  // username: string;
   cart: CartItemDto[];
 
   constructor(remoteService: RemoteService, private cookieService: CookieService) {
     this.remoteService = remoteService;
 
-    /* 
-    For now, decodeToken gives an InvalidCharacter error for some reason, so it could
-    come up later
-
     // fetch the token stored as a cookie from LoginComponent
-    this.username = this.remoteService.decodeToken(this.cookieService.get('token'));
-    console.log(this.username);
-    */
+    let tokenData = this.remoteService.decodeToken(this.cookieService.get('token'));
+    const accountType = tokenData.accountType;
 
     this.cart = [];
     // constant value for now, want to be able to retrieve the actual buyerId somehow
-    const buyerId = 2;
+    const buyerId = tokenData.specId;
     this.remoteService.getCart(buyerId)
     .subscribe({
       next: (data) => {

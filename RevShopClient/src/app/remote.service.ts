@@ -74,9 +74,11 @@ export class RemoteService {
     console.log('payloadobj', payloadObj);
     const uName = payloadObj.sub;
     const accountType = payloadObj.accountType[0].authority;
+    const specId = payloadObj.specificId;
     console.log("uName", uName);
     console.log("accountType", accountType);
-    return {uName, accountType};
+    console.log("specificId", specId); 
+    return {username: uName, accountType: accountType, specId: specId};
   }
 
   saveUser(user: AccountDto) {

@@ -3,6 +3,7 @@ package com.revature.revshopserver.services;
 import com.revature.revshopserver.entities.Account;
 import com.revature.revshopserver.entities.Buyer;
 import com.revature.revshopserver.entities.Seller;
+import com.revature.revshopserver.enums.AccountType;
 import com.revature.revshopserver.exceptions.ObjectNotFoundException;
 import com.revature.revshopserver.repositories.AccountRepository;
 import com.revature.revshopserver.repositories.BuyerRepository;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -20,6 +22,7 @@ public class AccountService {
     private final PasswordEncoder passwordEncoder;
     private final BuyerRepository buyerRepository;
     private final SellerRepository sellerRepository;
+
     @Autowired
     public AccountService(AccountRepository accountRepository, PasswordEncoder passwordEncoder, BuyerRepository buyerRepository, SellerRepository sellerRepository) {
         this.passwordEncoder = passwordEncoder;
@@ -27,17 +30,14 @@ public class AccountService {
         this.buyerRepository = buyerRepository;
         this.sellerRepository = sellerRepository;
     }
-    public Account save(Account account)
-    {
+
+    public Account save(Account account) {
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         Account result = accountRepository.save(account);
-        if("BUYER".equalsIgnoreCase(result.getAccountType().name()))
-        {
+        if ("BUYER".equalsIgnoreCase(result.getAccountType().name())) {
             Buyer buyer = new Buyer(result);
             buyerRepository.save(buyer);
-        }
-        else if("SELLER".equalsIgnoreCase(result.getAccountType().name()))
-        {
+        } else if ("SELLER".equalsIgnoreCase(result.getAccountType().name())) {
             Seller seller = new Seller(result);
             sellerRepository.save(seller);
         }
@@ -58,5 +58,6 @@ public class AccountService {
     public Optional<Account> findByUsername(String username) {
         return accountRepository.findByUsername(username);
     }
+
 
 }
