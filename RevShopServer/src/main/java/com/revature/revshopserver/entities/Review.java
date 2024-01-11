@@ -24,6 +24,7 @@ public class Review {
     private String description;
 
     @Column(name = "timestamp",
+            columnDefinition = "timestamp USING \"timestamp\"::timestamp(6) with time zone",
             nullable = false)
     private ZonedDateTime timestamp;
 

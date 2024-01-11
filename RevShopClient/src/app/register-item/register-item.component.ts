@@ -27,7 +27,7 @@ export class RegisterItemComponent {
   }
   constructor(remoteService:RemoteService){
     this.remoteService = remoteService
-    this.sellerId = 0
+    this.sellerId = 1
     this.dullButton = false
     this.sellerEmail = ""
   }

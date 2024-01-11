@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, catchError } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class RemoteService {
     withCredentials: true,
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  constructor(httpClient: HttpClient) {
+  constructor(httpClient: HttpClient, cookieService: CookieService) {
     this.httpClient = httpClient;
     this.baseUrl = 'http://localhost:8080';
   }
@@ -30,7 +31,7 @@ export class RemoteService {
   }
   registerNewProduct(product: NewProductDto, sellerId: number) {
     return this.httpClient.post(
-      this.baseUrl + '/Products/' + sellerId + '/registerProduct',
+      this.baseUrl + '/Products/' + sellerId + '/addProduct',
       JSON.stringify(product),
       {
         observe: 'response',
@@ -38,6 +39,40 @@ export class RemoteService {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       }
     );
+  }
+  getAllProducts() {
+    return this.httpClient.get(this.baseUrl + '/Products/getProducts', {
+      observe: 'response',
+      withCredentials: true,
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
+  }
+
+  registerNewDiscount(product:NewDiscountDto, productId:number){
+    return this.httpClient.post(this.baseUrl + "/Discounts/" + productId + "/newDiscount", JSON.stringify(product),{
+      observe: 'response',
+      withCredentials: true ,
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    })
+  }
+
+  login(authDto: LoginDto): Observable<HttpResponse<Object>> {
+    return this.httpClient.post(this.baseUrl + "/login", JSON.stringify(authDto),
+    {
+      observe: 'response', 
+      withCredentials: true ,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })}
+    )
+  }
+
+  decodeToken(token: string) {
+    const payload = token.split('.')[1];
+    const decodedPayload = atob(payload);
+    const payloadObj = JSON.parse(decodedPayload);
+    const uName = payloadObj.sub;
+    return uName;
   }
 
   saveUser(user: AccountDto) {
@@ -51,7 +86,7 @@ export class RemoteService {
       }
     );
   }
-  saveProduct(order: OrderDto) {
+  saveOrder(order: OrderDto) {
     return this.httpClient.post(
       this.baseUrl + '/setorder',
       JSON.stringify(order),
@@ -68,8 +103,17 @@ export class RemoteService {
       observe: 'response',
       withCredentials: true ,
       headers: new HttpHeaders({'Content-Type': 'application/json'})
-    })
+    });
   }
+
+  uploadPicutre(file:FormData){
+    return this.httpClient.post(this.baseUrl + "/images/newImage",JSON.stringify(file),{
+      observe: 'response',
+      withCredentials: true ,
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    });
+  }
+
 }
 export interface NewMessageDto {
   recipient: string;
@@ -82,6 +126,23 @@ export interface NewProductDto {
   category: string;
   price: number;
   inventoryCount: number;
+  seller?:SellerDto;
+}
+export interface SellerDto{
+  account:AccountDto;
+  sellerId:number;
+}
+export interface NewDiscountDto{
+  discountPrice:number
+  startDate:string
+  endDate:string
+
+}
+
+export interface BuyerDto{
+  firstname:string
+  lastname:string
+  account:AccountDto
 }
 export interface AccountDto {
   username: string;
@@ -96,13 +157,19 @@ export interface BuyerDto {
   account: AccountDto;
 }
 export interface OrderDto {
+  orderId?: string;
   shippingAddress: string;
   billingAddress: string;
   timestamp?: string;
   buyer?: BuyerDto;
+  orderStatus: string;
 }
 export interface OrderItemDto {
   order: OrderDto;
   amount: number;
   price: number;
+}
+export interface LoginDto {
+  username: String
+  password: String
 }

@@ -1,24 +1,29 @@
-<h2>Register your new Product</h2>
-
-
-<br>
-<label>Product name:</label>
-<input type="text" id = name [(ngModel)]="newProduct.name">
-<br>
-<label>Product description:</label>
-<input type="text" id = desc [(ngModel)]="newProduct.description">
-<br>
-<label>Category:</label>
-<input type="text" id = category [(ngModel)]="newProduct.category">
-<br>
-<label>Price:</label>
-<input type="number" id = price [(ngModel)] = "newProduct.price">
-<br>
-<label>Current Inventory:</label>
-<input type="number" id = inventory [(ngModel)] = "newProduct.inventoryCount">
-<br><br>
-<button (click)="registerProduct()" *ngIf="newProduct.name != '' && newProduct.description != '' && newProduct.category != '' && newProduct.price > 0 && newProduct.inventoryCount >= 0; else dullButton">Add product</button>
-<ng-template #dullButton>
-    <button disabled="true">Add product</button>
-</ng-template>
-<br>
+<div class="register-item">
+    <h2>Register your new Product</h2>
+    <div class="register-item-form">
+        <div class="form-group">
+            <label>Product name</label>
+            <input type="text" id = name [(ngModel)]="newProduct.name">
+        </div>
+        <div class="form-group">
+            <label>Product description</label>
+            <input type="text" id = desc [(ngModel)]="newProduct.description">
+        </div>
+        <div class="form-group">
+            <label>Category:</label>
+            <input type="text" id = category [(ngModel)]="newProduct.category">
+        </div>
+        <div class="form-group">
+            <label>Price:</label>
+            <input type="number" id = price [(ngModel)] = "newProduct.price">
+        </div>
+        <div class="form-group">
+            <label>Current Inventory:</label>
+            <input type="number" id = inventory [(ngModel)] = "newProduct.inventoryCount">
+        </div>
+        <button (click)="registerProduct()" *ngIf="newProduct.name != '' && newProduct.description != '' && newProduct.category != '' && newProduct.price > 0 && newProduct.inventoryCount >= 0; else dullButton">Add product</button>
+        <ng-template #dullButton>
+            <button disabled="true">Add product</button>
+        </ng-template>
+    </div>
+</div>
