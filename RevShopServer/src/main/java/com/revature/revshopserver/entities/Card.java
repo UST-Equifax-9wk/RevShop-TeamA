@@ -1,12 +1,15 @@
 package com.revature.revshopserver.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.revature.revshopserver.enums.CardType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "cards")
-public class Card {
+public class Card implements Serializable {
     @Id
     @Column(name = "card_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,19 +25,21 @@ public class Card {
     @Enumerated(EnumType.STRING)
     private CardType cardType;
 
-    @ManyToOne
-    @JoinColumn(name = "buyer_id")
-    private Buyer buyer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id")
+    @JsonBackReference
+    private Account account;
 
     public Card() {
     }
 
-    public Card(Long cardId, String cardNumber, String cardHolderName, String expirationDate, CardType cardType) {
+    public Card(Long cardId, String cardNumber, String cardHolderName, String expirationDate, CardType cardType, Account account) {
         this.cardId = cardId;
         this.cardNumber = cardNumber;
         this.cardHolderName = cardHolderName;
         this.expirationDate = expirationDate;
         this.cardType = cardType;
+        this.account = account;
     }
 
     public Long getCardId() {
@@ -76,6 +81,15 @@ public class Card {
     public void setCardType(CardType cardType) {
         this.cardType = cardType;
     }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
 
     @Override
     public String toString() {

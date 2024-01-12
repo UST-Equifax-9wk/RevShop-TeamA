@@ -1,1 +1,19 @@
-<p>dashboard works!</p>
+<div class="card">
+    <h3>Card Details :</h3>
+    <button (click)="fetchCardDetails()">Show Card</button>
+    <ul class="card-details" *ngIf="cards.length > 0; else noCards">
+        <li *ngFor="let card of cards">
+            <p>Card Number : {{card.cardNumber}}</p>
+            <p>Good Through : {{card.expirationDate}}</p>
+            <p>Card Holder Name :  {{card.cardHolderName}}</p>
+            <p>Card Type :  {{card.cardType}}</p>
+        </li>
+    </ul>
+    <ng-template #noCards>
+        <p>No cards available.</p>
+    </ng-template>
+</div>
+
+<div class="btn-group">
+    <button (click)="toggleAddCard()">Add Card</button>
+</div>

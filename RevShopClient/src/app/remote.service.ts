@@ -9,6 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class RemoteService {
   httpClient: HttpClient;
   baseUrl: String;
+  cookieService: CookieService;
   httpOptions = {
     observe: 'response',
     withCredentials: true,
@@ -16,6 +17,7 @@ export class RemoteService {
   };
   constructor(httpClient: HttpClient, cookieService: CookieService) {
     this.httpClient = httpClient;
+    this.cookieService = cookieService;
     this.baseUrl = 'http://localhost:8080';
   }
   sendEmail(message: NewMessageDto) {
@@ -118,6 +120,31 @@ export class RemoteService {
     });
   }
 
+  addCard(cardDto: CardDto, accountId: string) : Observable<HttpResponse<Object>> {
+    const token = this.cookieService.get('token');
+    const endpoint = `/account/cards/add?accountId=${accountId}`
+    return this.httpClient.post(this.baseUrl + endpoint , JSON.stringify(cardDto),
+    {
+      observe: 'response', 
+      withCredentials: true,
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })});
+  }
+
+  getCardDetails(accountId: string) : Observable<any> {
+    const token = this.cookieService.get('token');
+    console.log('aId',accountId);
+    return this.httpClient.get(this.baseUrl + `/account/cards/all?accountId=${accountId}`, {
+      observe: 'response', 
+      withCredentials: true,
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })});
+  }
+
 }
 export interface NewMessageDto {
   recipient: string;
@@ -176,4 +203,10 @@ export interface OrderItemDto {
 export interface LoginDto {
   username: String
   password: String
+}
+export interface CardDto {
+  cardNumber: string
+  expirationDate: string
+  cardHolderName: string
+  cardType: string
 }
