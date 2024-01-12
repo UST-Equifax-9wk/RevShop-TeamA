@@ -20,6 +20,7 @@ export class NavBarComponent {
   logout(): void {
     alert("logged out!");
     localStorage.clear();
+    this.sessionService.resetSession();
     this.authService.logout();
   }
 }
