@@ -74,9 +74,11 @@ export class RemoteService {
     console.log('payloadobj', payloadObj);
     const uName = payloadObj.sub;
     const accountType = payloadObj.accountType[0].authority;
+    const specificId = payloadObj.specificId;
     console.log("uName", uName);
     console.log("accountType", accountType);
-    return {uName, accountType};
+    console.log("specificId", specificId); 
+    return {username: uName, accountType: accountType, specificId: specificId};
   }
   getUser(username: string){
     return this.httpClient.get(
@@ -187,6 +189,12 @@ export interface AccountDto {
   email: string;
   phone: string;
   accountType: string;
+}
+export interface CartItemDto {
+  cartItemId: number,
+  productId: number,
+  name: string,
+  quantity: number
 }
 export interface OrderDto {
   orderId?: string;

@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -64,5 +65,12 @@ public class AccountController {
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SignInRequest request) {
         logger.info("Received request to login");
         return ResponseEntity.ok(authenticationService.signin(request));
+    }
+
+    // Handling this error for JWTToken not finding a username on lookup for generateToken
+    @ExceptionHandler(NoSuchElementException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> internalErrorHandler(NoSuchElementException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
