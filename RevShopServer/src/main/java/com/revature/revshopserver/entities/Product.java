@@ -35,7 +35,7 @@ public class Product {
     private int inventoryCount;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonManagedReference(value = "cartItems")
     private Set<CartItem> cartItems;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST)
@@ -43,7 +43,7 @@ public class Product {
     private Set<Review> reviews;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonManagedReference(value = "discounts")
     private Set<Discount> discounts;
 
     @ManyToOne

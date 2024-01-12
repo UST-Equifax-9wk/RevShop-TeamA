@@ -66,7 +66,7 @@ export class RemoteService {
       })}
     )
   }
-
+  
   decodeToken(token: string) {
     const payload = token.split('.')[1];
     const decodedPayload = atob(payload);
@@ -132,14 +132,23 @@ export class RemoteService {
     });
   }
 
-  uploadPicutre(file:FormData){
-    return this.httpClient.post(this.baseUrl + "/images/newImage",JSON.stringify(file),{
-      observe: 'response',
-      withCredentials: true ,
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    });
+  uploadPicutre(file:FormData, productId:number){
+    return this.httpClient.post(this.baseUrl + "/images/" + productId + "/newImage",file,{
+      reportProgress: true,
+      withCredentials: true,
+      observe:'events'
+    })
   }
-
+  downloadImage(imageName:string){
+  return this.httpClient.get(this.baseUrl + '/images/' + imageName,
+       {
+          observe: 'response',
+          withCredentials: true,
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        }
+      );
+  }
+  //Comment to commit and push
 }
 export interface NewMessageDto {
   recipient: string;
