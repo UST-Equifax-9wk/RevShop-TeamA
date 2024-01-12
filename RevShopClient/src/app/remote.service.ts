@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, catchError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -74,11 +74,9 @@ export class RemoteService {
     const uName = payloadObj.sub;
     return uName;
   }
-
-  saveUser(user: AccountDto) {
-    return this.httpClient.post(
-      this.baseUrl + '/register',
-      JSON.stringify(user),
+  getUser(username: string){
+    return this.httpClient.get(
+      this.baseUrl + '/' + username,
       {
         observe: 'response',
         withCredentials: true,
@@ -86,7 +84,30 @@ export class RemoteService {
       }
     );
   }
-  saveOrder(order: OrderDto) {
+  getBuyer(id:number){
+    let params : HttpParams = new HttpParams().set('id',id);
+    return this.httpClient.get(this.baseUrl + '/getBuyer',{
+      observe: 'response',
+      withCredentials: true,
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      params:params
+    });
+  }
+  saveUser(user: AccountDto,address:string,firstname:string,lastname:string) {
+    let params : HttpParams = new HttpParams().set('address',address).set('firstname',firstname).set('lastname',lastname);
+    return this.httpClient.post(
+      this.baseUrl + '/register',
+      JSON.stringify(user),
+      {
+        observe: 'response',
+        withCredentials: true,
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        params:params
+      }
+    );
+  }
+  saveOrder(order: OrderDto,id:number) {
+    let params : HttpParams = new HttpParams().set('id',id);
     return this.httpClient.post(
       this.baseUrl + '/setorder',
       JSON.stringify(order),
@@ -94,6 +115,7 @@ export class RemoteService {
         observe: 'response',
         withCredentials: true,
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        params:params
       }
     );
   }
@@ -133,9 +155,11 @@ export interface NewDiscountDto{
 export interface BuyerDto{
   firstname:string
   lastname:string
-  account:AccountDto
+  account?:AccountDto
+  id?:number
 }
 export interface AccountDto {
+  accountId?: number;
   username: string;
   password: string;
   email: string;

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NewProductDto, OrderDto, OrderItemDto, RemoteService } from '../remote.service';
+import { AccountDto, BuyerDto, NewProductDto, OrderDto, OrderItemDto, RemoteService } from '../remote.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-payment',
@@ -20,9 +21,36 @@ export class PaymentComponent {
   zipcode: string = '';
   country: string = '';
   city: string = '';
+  account: AccountDto = {
+    accountId: -1,
+    username: '',
+    password: '',
+    email: '',
+    phone: '',
+    accountType: ''
+  };
+  buyer: BuyerDto = {
+    firstname: '',
+    lastname: ''
+  }
   arr: Array<NewProductDto> = [];
   //orderitems:Array<OrderItemDto> 
-  constructor(private remoteService: RemoteService) {
+  constructor(private remoteService: RemoteService, private cookieService: CookieService) {
+    //TODO: maybe change so that the user that comes back doesnt contain the encrypted password
+    this.remoteService.getUser(this.remoteService.decodeToken(this.cookieService.get('token'))).subscribe({
+      next:data =>{
+        console.log(data.body);
+        Object.assign(this.account,data.body);
+        console.log(this.account);
+        this.remoteService.getBuyer(this.account.accountId!).subscribe({
+          next: data =>{
+            console.log(data.body);
+            Object.assign(this.buyer,data.body);
+            console.log(this.buyer);
+          }
+        });
+      }
+    });
     remoteService.getAllProducts().subscribe({
       next: data =>{
         let tempProduct : NewProductDto =
@@ -48,13 +76,14 @@ export class PaymentComponent {
     });
   }
   checkOut(){
-    //REMOVE THIS LATER?(WHAT IS OUR SHIPPING ADDRESS?)
-    this.order.shippingAddress = "13501 Nantucket Place Bakersfield,CA"
+    //REMOVE THIS LATER?(WHAT IS OUR SHIPPING ADDRESS? THIS SHOULD BE MOVED TO ORDERITEM?)
+    console.log(this.arr[0].seller)
     this.order.billingAddress = this.streetAddress + " " + this.city + " " + this.zipcode + " " + this.country;
-
+    console.log(this.remoteService.decodeToken(this.cookieService.get('token')));
     this.order.orderStatus = "PENDING";
     console.log(this.order);
-    this.remoteService.saveOrder(this.order).subscribe({
+    console.log(this.buyer);
+    this.remoteService.saveOrder(this.order,this.buyer.id!).subscribe({
       next: data=> {
         Object.assign(this.order,data.body);
         console.log(this.order);

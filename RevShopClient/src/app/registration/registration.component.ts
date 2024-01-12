@@ -21,6 +21,9 @@ export class RegistrationComponent {
     accountType:"",
   }
   message = ""
+  address = ""
+  firstname = ""
+  lastname = ""
   constructor(private remoteService:RemoteService){ }
   registerAccount(){
     if(this.user.username == "" || this.user.password == "" || this.user.email == "" || this.user.phone == "")
@@ -28,7 +31,7 @@ export class RegistrationComponent {
       this.message = "please make sure to fill out all parts of the form";
       return;
     }
-    this.remoteService.saveUser(this.user).subscribe({
+    this.remoteService.saveUser(this.user,this.address,this.firstname,this.lastname).subscribe({
         next: data => {
           console.log(data);
           console.log("Attempting to send email...");
