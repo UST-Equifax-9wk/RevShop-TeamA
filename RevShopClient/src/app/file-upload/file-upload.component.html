@@ -7,6 +7,22 @@
 
     <button mat-mini-fab color="primary" class="upload-btn"
       (click)="fileUpload.click()">
-        <div>attach_file</div>
+        <div>Attach file</div>
     </button>
+
+    <br>
+    <button (click) = "UploadFile()">Upload</button>
+</div>
+<br>
+<div>
+  Image name:<input type="text" [(ngModel)] = "fileName">
+</div>
+<button (click) = "getImage()"> get the image!</button>
+
+<div class="container row">
+  <div class="col-md-12">
+      <div *ngIf=retrievedImage>
+          <img [src]="retrievedImage">
+      </div>
+  </div>
 </div>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { CookieService } from 'ngx-cookie-service';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,11 +13,14 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
-  constructor(public authService: AuthService, private cookieService: CookieService) {}
+  constructor(public authService: AuthService, 
+    public sessionService: SessionService,
+    private cookieService: CookieService) {}
 
   logout(): void {
     alert("logged out!");
     localStorage.clear();
+    this.sessionService.resetSession();
     this.authService.logout();
   }
 }

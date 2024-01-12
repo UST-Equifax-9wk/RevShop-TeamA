@@ -12,16 +12,21 @@
         <li *ngIf="authService.isLoggedIn | async">
             <a routerLink="dashboard">Dashboard</a>
         </li>
-        <li *ngIf="authService.isLoggedIn | async">
+        <li *ngIf="(authService.isLoggedIn | async) && sessionService.accountType === 'BUYER'">
             <a routerLink="/payment">Checkout</a>
         </li>
-        <li>
+        <li *ngIf="(authService.isLoggedIn | async) && sessionService.accountType === 'BUYER'">
+            <a routerLink="/cart">Cart</a>
+        </li>
+        <li *ngIf="(authService.isLoggedIn | async) && sessionService.accountType === 'SELLER'">
             <a routerLink="/addProduct">Add a product</a>
+        </li>
+        <li *ngIf="(authService.isLoggedIn | async) && sessionService.accountType === 'SELLER'">
+            <a routerLink="/fileUpload">upload picture</a>
         </li>
         <li *ngIf="authService.isLoggedIn | async">
             <a routerLink="logout" (click)="logout()">Logout</a>
-        <li>
-            <a routerLink="/fileUpload">upload picture</a>
         </li>
+        
     </ul>
 </nav>

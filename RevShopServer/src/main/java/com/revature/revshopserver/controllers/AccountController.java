@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 
@@ -38,9 +39,10 @@ public class AccountController {
 
     @PostMapping(path = "/register")
     @ResponseStatus(HttpStatus.OK)
-    public Account registerAccount(@Valid @RequestBody Account account) {
+    public Account registerAccount(@Valid @RequestBody Account account,@RequestParam(required = false) String address
+    ,@RequestParam(required = false) String firstname, @RequestParam(required = false) String lastname) {
         logger.info("received request to register user");
-        return accountService.save(account);
+        return accountService.save(account,address,firstname,lastname);
     }
 
     @GetMapping("/allUsers")
@@ -91,4 +93,10 @@ public class AccountController {
         return ResponseEntity.ok(account.getCards());
     }
 
+    // Handling this error for JWTToken not finding a username on lookup for generateToken
+    @ExceptionHandler(NoSuchElementException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> internalErrorHandler(NoSuchElementException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

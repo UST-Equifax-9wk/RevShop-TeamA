@@ -1,5 +1,6 @@
 package com.revature.revshopserver.controllers;
 
+import com.revature.revshopserver.dtos.BuyerDto;
 import com.revature.revshopserver.entities.Buyer;
 import com.revature.revshopserver.exceptions.ObjectNotFoundException;
 import com.revature.revshopserver.services.BuyerService;
@@ -15,9 +16,16 @@ public class BuyerController {
 
     private final BuyerService buyerService;
 
+
     @Autowired
     public BuyerController(BuyerService buyerService) {
         this.buyerService = buyerService;
+    }
+
+
+    @GetMapping("/getBuyer")//give the Account id not the buyer id
+    public BuyerDto getBuyer(@RequestParam Integer id) throws ObjectNotFoundException {
+        return buyerService.getBuyerByAccountId(id);
     }
 
     @GetMapping(path = "/all-buyers")
@@ -35,5 +43,6 @@ public class BuyerController {
     public ResponseEntity<String> internalErrorHandler(ObjectNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
 
 }

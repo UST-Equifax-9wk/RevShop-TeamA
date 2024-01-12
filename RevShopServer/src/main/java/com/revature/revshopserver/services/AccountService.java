@@ -4,6 +4,7 @@ import com.revature.revshopserver.entities.Account;
 import com.revature.revshopserver.entities.Buyer;
 import com.revature.revshopserver.entities.Card;
 import com.revature.revshopserver.entities.Seller;
+import com.revature.revshopserver.enums.AccountType;
 import com.revature.revshopserver.exceptions.ObjectNotFoundException;
 import com.revature.revshopserver.repositories.AccountRepository;
 import com.revature.revshopserver.repositories.BuyerRepository;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -40,18 +42,18 @@ public class AccountService {
         this.buyerRepository = buyerRepository;
         this.sellerRepository = sellerRepository;
     }
-    public Account save(Account account)
+    public Account save(Account account, String address, String firstname, String lastname)
     {
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         Account result = accountRepository.save(account);
-        if("BUYER".equalsIgnoreCase(result.getAccountType().name()))
-        {
+        if ("BUYER".equalsIgnoreCase(result.getAccountType().name())) {
             Buyer buyer = new Buyer(result);
+            buyer.setFirstname(firstname);
+            buyer.setLastname(lastname);
             buyerRepository.save(buyer);
-        }
-        else if("SELLER".equalsIgnoreCase(result.getAccountType().name()))
-        {
+        } else if ("SELLER".equalsIgnoreCase(result.getAccountType().name())) {
             Seller seller = new Seller(result);
+            seller.setBusinessAddress(address);
             sellerRepository.save(seller);
         }
         return result;
@@ -72,10 +74,6 @@ public class AccountService {
     public Optional<Account> findByUsername(String username) {
         return accountRepository.findByUsername(username);
     }
-
-//    public Optional<Account> findByAccountId(Integer accountId) {
-//        return accountRepository.findAccountById(accountId);
-//    }
 
     @Transactional
     public Card addCardToAccount(Account account, Card cardDetails) throws Exception {
