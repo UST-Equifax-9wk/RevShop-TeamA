@@ -1,23 +1,48 @@
 package com.revature.revshopserver.controllers;
 
 import com.revature.revshopserver.dtos.BuyerDto;
+import com.revature.revshopserver.entities.Buyer;
 import com.revature.revshopserver.exceptions.ObjectNotFoundException;
 import com.revature.revshopserver.services.BuyerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RestController
 public class BuyerController {
+
     private final BuyerService buyerService;
+
+
     @Autowired
     public BuyerController(BuyerService buyerService) {
         this.buyerService = buyerService;
     }
 
+
     @GetMapping("/getBuyer")//give the Account id not the buyer id
     public BuyerDto getBuyer(@RequestParam Integer id) throws ObjectNotFoundException {
         return buyerService.getBuyerByAccountId(id);
     }
+
+    @GetMapping(path = "/all-buyers")
+    public Set<Buyer> getAllBuyers() {
+        return this.buyerService.getAllBuyers();
+    }
+
+    @GetMapping(path = "/buyer/{buyer_id}")
+    public Buyer getBuyerById(@PathVariable("buyer_id") Integer buyerId) throws ObjectNotFoundException {
+        return this.buyerService.getBuyerById(buyerId);
+    }
+
+    @ExceptionHandler(ObjectNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> internalErrorHandler(ObjectNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+
 }

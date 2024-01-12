@@ -22,6 +22,7 @@ public class Buyer {
     @Column(name = "lastname")
     private String lastname;
 
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
     private Account account;
@@ -29,6 +30,10 @@ public class Buyer {
     @OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private Set<Review> reviews;
+
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
+    private Set<CartItem> cart;
 
     public Buyer() {
     }
@@ -95,4 +100,6 @@ public class Buyer {
     public int hashCode() {
         return Objects.hash(buyerId, account);
     }
+
+
 }

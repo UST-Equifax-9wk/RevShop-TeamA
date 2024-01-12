@@ -34,7 +34,11 @@ public class Product {
     @Column(name = "inventory_count")
     private int inventoryCount;
 
-    @OneToMany(mappedBy= "product", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
+    private Set<CartItem> cartItems;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST)
     @JsonManagedReference(value = "reviews")
     private Set<Review> reviews;
 

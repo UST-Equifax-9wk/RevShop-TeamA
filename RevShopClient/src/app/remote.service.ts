@@ -71,8 +71,12 @@ export class RemoteService {
     const payload = token.split('.')[1];
     const decodedPayload = atob(payload);
     const payloadObj = JSON.parse(decodedPayload);
+    console.log('payloadobj', payloadObj);
     const uName = payloadObj.sub;
-    return uName;
+    const accountType = payloadObj.accountType[0].authority;
+    console.log("uName", uName);
+    console.log("accountType", accountType);
+    return {uName, accountType};
   }
   getUser(username: string){
     return this.httpClient.get(
@@ -119,14 +123,23 @@ export class RemoteService {
       }
     );
   }
+
+  getCart(buyerId: number) {
+    return this.httpClient.get(this.baseUrl + `/buyer/${buyerId}/cart`, {
+      observe: 'response',
+      withCredentials: true ,
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    });
+  }
+
   uploadPicutre(file:FormData){
     return this.httpClient.post(this.baseUrl + "/images/newImage",JSON.stringify(file),{
       observe: 'response',
       withCredentials: true ,
       headers: new HttpHeaders({'Content-Type': 'application/json'})
-    })
+    });
   }
-  //Comment to commit and push
+
 }
 export interface NewMessageDto {
   recipient: string;
