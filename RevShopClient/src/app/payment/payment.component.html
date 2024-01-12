@@ -2,11 +2,11 @@
     <div class="payment-form">
         <div class="form-group">
             <label>First name</label>
-            <input type="text" placeholder="firstname">
+            {{this.buyer.firstname}}
         </div>
         <div class="form-group">
             <label>Last name</label>
-            <input type="text" placeholder="lastname">
+            {{this.buyer.lastname}}
         </div>
         <div class="form-group">
             <label>Country</label>
@@ -266,12 +266,12 @@
         </div>
         <!--TODO AUTOFILL IN? DO WE NEED TO RECORD THESE?-->
         <div class="form-group">
-            <label>Phone</label>
-            <input type="text" placeholder="phone">
+            <label>Your Phone:</label>
+            {{account.phone}}
         </div>
         <div class="form-group">
-            <label>Email</label>
-            <input type="text" placeholder="email">
+            <label>Your Email:</label>
+            {{account.email}}
         </div>
         <button (click)="checkOut()">Checkout</button>
     </div>

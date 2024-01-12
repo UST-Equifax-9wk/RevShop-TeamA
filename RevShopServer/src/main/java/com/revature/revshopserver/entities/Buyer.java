@@ -16,15 +16,14 @@ public class Buyer {
     @Column(name = "buyer_id")
     private Integer buyerId;
 
-    /*
     @Column(name = "firstname")
     private String firstname;
 
     @Column(name = "lastname")
     private String lastname;
-    */
 
-    @OneToOne(cascade = CascadeType.ALL)
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
     private Account account;
 
@@ -55,6 +54,30 @@ public class Buyer {
 
     public void setBuyerId(Integer buyerId) {
         this.buyerId = buyerId;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public Account getAccount() {
