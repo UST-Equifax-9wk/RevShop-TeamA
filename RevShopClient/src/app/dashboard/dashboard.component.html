@@ -1,19 +1,43 @@
-<div class="card">
-    <h3>Card Details :</h3>
-    <button (click)="fetchCardDetails()">Show Card</button>
-    <ul class="card-details" *ngIf="cards.length > 0; else noCards">
-        <li *ngFor="let card of cards">
-            <p>Card Number : {{card.cardNumber}}</p>
-            <p>Good Through : {{card.expirationDate}}</p>
-            <p>Card Holder Name :  {{card.cardHolderName}}</p>
-            <p>Card Type :  {{card.cardType}}</p>
-        </li>
-    </ul>
-    <ng-template #noCards>
-        <p>No cards available.</p>
-    </ng-template>
-</div>
-
-<div class="btn-group">
-    <button (click)="toggleAddCard()">Add Card</button>
+<div class="cards-block">
+    <div class="card">
+        <h3>Card Details :</h3>
+        <button (click)="fetchCardDetails()">Show Card</button>
+        <ul class="card-details" *ngIf="cards.length > 0; else noCards">
+            <li *ngFor="let card of cards">
+                <p>Card Number : {{card.cardNumber}}</p>
+                <p>Good Through : {{card.expirationDate}}</p>
+                <p>Card Holder Name :  {{card.cardHolderName}}</p>
+                <p>Card Type :  {{card.cardType}}</p>
+            </li>
+        </ul>
+        <ng-template #noCards>
+            <p>No cards available.</p>
+        </ng-template>
+    </div>
+    
+    <div class="btn-group">
+        <button (click)="toggleAddCard()">Add Card</button>
+    </div>
+    <div class="card-info" *ngIf="addCardFlag">
+        <p><i>Please Enter your card details</i></p>
+        <div class="form-group">
+            <label for="detail">Card Number</label>
+            <input type="text" id="detail" [(ngModel)]="cardNumber" name="receiverIdentifier">
+        </div>
+        <div class="form-group">
+            <label for="validity">Valid Through</label>
+            <input type="text" id="validity" [(ngModel)]="expirationDate" name="validity">
+        </div>
+        <div class="form-group">
+            <label for="name">Card Holder Name</label>
+            <input type="text" id="name" [(ngModel)]="cardHolderName" name="name">
+        </div>
+        <div class="form-group">
+            <label>Card Type</label>
+            <select [(ngModel)]="cardType" class="form-group">
+                <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+              </select>
+        </div>
+        <button (click)="addCardDetails()">Send</button>
+    </div>
 </div>

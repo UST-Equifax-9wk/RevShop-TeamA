@@ -73,7 +73,6 @@ export class RemoteService {
     const payload = token.split('.')[1];
     const decodedPayload = atob(payload);
     const payloadObj = JSON.parse(decodedPayload);
-    console.log('payloadobj', payloadObj);
     const uName = payloadObj.sub;
     const accountType = payloadObj.accountType[0].authority;
     const specificId = payloadObj.specificId;
@@ -146,7 +145,7 @@ export class RemoteService {
 
   addCard(cardDto: CardDto, accountId: string) : Observable<HttpResponse<Object>> {
     const token = this.cookieService.get('token');
-    const endpoint = `/account/cards/add?accountId=${accountId}`
+    const endpoint = `/cards/add?accountId=${accountId}`
     return this.httpClient.post(this.baseUrl + endpoint , JSON.stringify(cardDto),
     {
       observe: 'response', 
@@ -160,7 +159,18 @@ export class RemoteService {
   getCardDetails(accountId: string) : Observable<any> {
     const token = this.cookieService.get('token');
     console.log('aId',accountId);
-    return this.httpClient.get(this.baseUrl + `/account/cards/all?accountId=${accountId}`, {
+    return this.httpClient.get(this.baseUrl + `/cards/all?accountId=${accountId}`, {
+      observe: 'response', 
+      withCredentials: true,
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })});
+  }
+
+  getUserInfo(username: string) : Observable<HttpResponse<Object>> {
+    const token = this.cookieService.get('token');
+    return this.httpClient.get(this.baseUrl + `/${username}`, {
       observe: 'response', 
       withCredentials: true,
       headers: new HttpHeaders({

@@ -1,0 +1,18 @@
+.cards-block {
+    display: block;
+    padding: 80px 20px 40px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+@media (min-width: 940px) and (max-width: 1199px) {
+    .cards-block {
+        max-width: 50%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .cards-block {
+        max-width: 30%;
+    }
+}

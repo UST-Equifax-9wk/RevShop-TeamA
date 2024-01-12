@@ -72,26 +72,6 @@ public class AccountController {
         return ResponseEntity.ok(authenticationService.signin(request));
     }
 
-    @PostMapping(path = "/cards/add")
-    public ResponseEntity<Card> addCard(@Valid @RequestBody Card card, @RequestParam Integer accountId) throws Exception {
-        logger.info("Received request to add card");
-        Account account = accountService.getAccountByAccountId(accountId);
-
-        Card addedCard = accountService.addCardToAccount(account, card);
-        logger.info("Card added!");
-        return ResponseEntity.ok(addedCard);
-    }
-
-    @GetMapping(path = "/cards/all")
-    public ResponseEntity<Set<Card>> findCardByAccountId(@RequestParam String accountId) throws Exception {
-        logger.info("Received request to show all cards");
-        Account account = accountService.getAccountByAccountId(Integer.parseInt(accountId));
-        for (Card card: account.getCards()) {
-            card.setCardNumber( EncryptionUtil.decrypt(card.getCardNumber()));
-        }
-        logger.info("showing all cards by account");
-        return ResponseEntity.ok(account.getCards());
-    }
 
     // Handling this error for JWTToken not finding a username on lookup for generateToken
     @ExceptionHandler(NoSuchElementException.class)
