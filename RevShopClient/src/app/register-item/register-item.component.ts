@@ -19,12 +19,14 @@ export class RegisterItemComponent {
   fileName = '';
   file!: File;
   dullButton:boolean
+  productId:number
   newProduct:NewProductDto = {
     name:"",
     description : "",
     category : "",
     price: 0,
     inventoryCount: 0
+  
   }
   constructor(remoteService:RemoteService){
     this.remoteService = remoteService
@@ -32,6 +34,7 @@ export class RegisterItemComponent {
     this.sellerId = 1
     this.dullButton = false
     this.sellerEmail = ""
+    this.productId = 1
   }
 
   registerProduct(){
@@ -81,7 +84,7 @@ export class RegisterItemComponent {
         formData.append('imageFile', this.file, this.fileName);
         
         //console.log(formData);
-        this.remoteService.uploadPicutre(formData, this.sellerId).subscribe({
+        this.remoteService.uploadPicutre(formData, this.productId).subscribe({
           next:(data)=>{
             console.log(data)
             console.log("data was sent to server")
