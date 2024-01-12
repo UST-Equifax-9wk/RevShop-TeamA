@@ -1,6 +1,6 @@
 package com.revature.revshopserver.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import com.revature.revshopserver.enums.AccountType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

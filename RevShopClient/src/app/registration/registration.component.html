@@ -24,6 +24,18 @@
                 <option value="SELLER">seller</option>
             </select>
         </div>
+        <div class="form-group" *ngIf="user.accountType == 'SELLER'">
+            <label>Enter your business address </label>
+            <input type="text" placeholder="address" [(ngModel)]="address">
+        </div>
+        <div class="form-group" *ngIf="user.accountType == 'BUYER'">
+            <label>Enter your firstname </label>
+            <input type="text" placeholder="firstname" [(ngModel)]="firstname">
+        </div>
+        <div class="form-group" *ngIf="user.accountType == 'BUYER'">
+            <label>Enter your lastname </label>
+            <input type="text" placeholder="lastname" [(ngModel)]="lastname">
+        </div>
         <div>
             <button (click)="registerAccount()">Submit</button>
         </div>

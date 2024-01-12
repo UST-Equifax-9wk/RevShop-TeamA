@@ -1,5 +1,6 @@
 package com.revature.revshopserver.services;
 
+import com.revature.revshopserver.dtos.SellerDto;
 import com.revature.revshopserver.entities.Seller;
 import com.revature.revshopserver.exceptions.ObjectNotFoundException;
 import com.revature.revshopserver.repositories.SellerRepository;
@@ -32,4 +33,11 @@ public class SellerService {
             throw new ObjectNotFoundException("Cannot find seller with that Id");
         return seller.get();
     }
+    public SellerDto getSellerAddress(int id) throws ObjectNotFoundException {
+        Optional<Seller> seller = sellerRepository.findById(id);
+        if (seller.isEmpty())
+            throw new ObjectNotFoundException("Cannot find seller with that Id");
+        return new SellerDto(seller.get());
+    }
+
 }
