@@ -34,9 +34,10 @@ public class AccountController {
 
     @PostMapping(path = "/register")
     @ResponseStatus(HttpStatus.OK)
-    public Account registerAccount(@Valid @RequestBody Account account) {
+    public Account registerAccount(@Valid @RequestBody Account account,@RequestParam(required = false) String address
+    ,@RequestParam(required = false) String firstname, @RequestParam(required = false) String lastname) {
         logger.info("received request to register user");
-        return accountService.save(account);
+        return accountService.save(account,address,firstname,lastname);
     }
 
     @GetMapping("/allUsers")

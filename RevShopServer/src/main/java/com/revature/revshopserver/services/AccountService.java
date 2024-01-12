@@ -30,15 +30,18 @@ public class AccountService {
         this.buyerRepository = buyerRepository;
         this.sellerRepository = sellerRepository;
     }
-
-    public Account save(Account account) {
+    public Account save(Account account, String address, String firstname, String lastname)
+    {
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         Account result = accountRepository.save(account);
         if ("BUYER".equalsIgnoreCase(result.getAccountType().name())) {
             Buyer buyer = new Buyer(result);
+            buyer.setFirstname(firstname);
+            buyer.setLastname(lastname);
             buyerRepository.save(buyer);
         } else if ("SELLER".equalsIgnoreCase(result.getAccountType().name())) {
             Seller seller = new Seller(result);
+            seller.setBusinessAddress(address);
             sellerRepository.save(seller);
         }
         return result;

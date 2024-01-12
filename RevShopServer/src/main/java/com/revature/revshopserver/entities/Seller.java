@@ -13,7 +13,8 @@ public class Seller {
     @Column(name = "seller_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sellerId;
-
+    @Column(name = "business_address")
+    private String businessAddress;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account", nullable = false)
     private Account account;
@@ -44,6 +45,14 @@ public class Seller {
 
     public void setSellerId(Integer sellerId) {
         this.sellerId = sellerId;
+    }
+
+    public String getBusinessAddress() {
+        return businessAddress;
+    }
+
+    public void setBusinessAddress(String businessAddress) {
+        this.businessAddress = businessAddress;
     }
 
     public Account getAccount() {
