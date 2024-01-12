@@ -9,6 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class RemoteService {
   httpClient: HttpClient;
   baseUrl: String;
+  cookieService: CookieService;
   httpOptions = {
     observe: 'response',
     withCredentials: true,
@@ -16,6 +17,7 @@ export class RemoteService {
   };
   constructor(httpClient: HttpClient, cookieService: CookieService) {
     this.httpClient = httpClient;
+    this.cookieService = cookieService;
     this.baseUrl = 'http://localhost:8080';
   }
   sendEmail(message: NewMessageDto) {
@@ -71,7 +73,6 @@ export class RemoteService {
     const payload = token.split('.')[1];
     const decodedPayload = atob(payload);
     const payloadObj = JSON.parse(decodedPayload);
-    console.log('payloadobj', payloadObj);
     const uName = payloadObj.sub;
     const accountType = payloadObj.accountType[0].authority;
     const specificId = payloadObj.specificId;
@@ -141,6 +142,43 @@ export class RemoteService {
       observe:'events'
     })
   }
+
+  addCard(cardDto: CardDto, accountId: string) : Observable<HttpResponse<Object>> {
+    const token = this.cookieService.get('token');
+    const endpoint = `/cards/add?accountId=${accountId}`
+    return this.httpClient.post(this.baseUrl + endpoint , JSON.stringify(cardDto),
+    {
+      observe: 'response', 
+      withCredentials: true,
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })});
+  }
+
+  getCardDetails(accountId: string) : Observable<any> {
+    const token = this.cookieService.get('token');
+    console.log('aId',accountId);
+    return this.httpClient.get(this.baseUrl + `/cards/all?accountId=${accountId}`, {
+      observe: 'response', 
+      withCredentials: true,
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })});
+  }
+
+  getUserInfo(username: string) : Observable<HttpResponse<Object>> {
+    const token = this.cookieService.get('token');
+    return this.httpClient.get(this.baseUrl + `/${username}`, {
+      observe: 'response', 
+      withCredentials: true,
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })});
+  }
+
   downloadImage(imageName:string){
   return this.httpClient.get(this.baseUrl + '/images/' + imageName,
        {
@@ -212,4 +250,10 @@ export interface OrderItemDto {
 export interface LoginDto {
   username: String
   password: String
+}
+export interface CardDto {
+  cardNumber: string
+  expirationDate: string
+  cardHolderName: string
+  cardType: string
 }

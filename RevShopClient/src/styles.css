@@ -24,7 +24,7 @@ button {
     border-radius: 8px;
     font-weight: 500;
     border: 0;
-    background: #8046FF;
+    background: #5b5fc7;
     color: white;
     padding: 8px 24px;
     cursor: pointer;
@@ -33,7 +33,7 @@ button {
 }
 
 button:hover, button:focus {
-    background: #B491FF;
+    background: #7579eb;
 }
 
 .form-group {

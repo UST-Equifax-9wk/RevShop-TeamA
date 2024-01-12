@@ -10,9 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "accounts")
@@ -45,6 +43,10 @@ public class Account implements UserDetails {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Card> cards = new HashSet<>();
 
 
     @Override
@@ -147,6 +149,14 @@ public class Account implements UserDetails {
 
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
+    }
+
+    public Set<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(Set<Card> cards) {
+        this.cards = cards;
     }
 
     @Override

@@ -3,8 +3,11 @@ package com.revature.revshopserver.controllers;
 import com.revature.revshopserver.dtos.JwtAuthenticationResponse;
 import com.revature.revshopserver.dtos.SignInRequest;
 import com.revature.revshopserver.entities.Account;
+import com.revature.revshopserver.entities.Card;
+import com.revature.revshopserver.exceptions.ObjectNotFoundException;
 import com.revature.revshopserver.services.AccountService;
 import com.revature.revshopserver.services.interfaces.AuthenticationService;
+import com.revature.revshopserver.utils.EncryptionUtil;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +16,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 public class AccountController {
@@ -66,6 +71,7 @@ public class AccountController {
         logger.info("Received request to login");
         return ResponseEntity.ok(authenticationService.signin(request));
     }
+
 
     // Handling this error for JWTToken not finding a username on lookup for generateToken
     @ExceptionHandler(NoSuchElementException.class)
