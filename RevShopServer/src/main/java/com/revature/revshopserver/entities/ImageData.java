@@ -14,11 +14,15 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ImageData {
 
-    
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    private Product product;
 
     private String name;
 

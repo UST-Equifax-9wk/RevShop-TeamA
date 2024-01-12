@@ -40,7 +40,8 @@ export class FileUploadComponent {
         formData.append('imageFile', this.file, this.fileName);
         
         //console.log(formData);
-        this.remoteService.uploadPicutre(formData).subscribe({
+        //This will only currently work if the database has a product with the id of 1
+        this.remoteService.uploadPicutre(formData, 1).subscribe({
           next:(data)=>{
             console.log(data)
             console.log("data was sent to server")

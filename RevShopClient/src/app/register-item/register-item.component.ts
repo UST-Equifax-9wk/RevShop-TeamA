@@ -16,7 +16,8 @@ export class RegisterItemComponent {
   //TODO: pull seller id and email for these 2 vairables
   sellerId:number
   sellerEmail:string
-
+  fileName = '';
+  file!: File;
   dullButton:boolean
   newProduct:NewProductDto = {
     name:"",
@@ -27,6 +28,7 @@ export class RegisterItemComponent {
   }
   constructor(remoteService:RemoteService){
     this.remoteService = remoteService
+    //TODO get the seller id from cookie 
     this.sellerId = 1
     this.dullButton = false
     this.sellerEmail = ""
@@ -38,6 +40,7 @@ export class RegisterItemComponent {
         alert("Registered a new product to seller account: " + this.sellerId + "!")
         console.log(data)
         this.sendNewProductMessage()
+        this.UploadFile()
     }, 
       error:(error:HttpErrorResponse) =>{
         alert("Error: could not register that product")
@@ -61,4 +64,35 @@ export class RegisterItemComponent {
       }
     })
   }
+  onFileSelected(event:any) {
+
+    this.file= event.target.files[0];
+
+    if (this.file) {
+
+        this.fileName = this.file.name;
+    }
+  }
+
+    UploadFile(){
+      if (this.file) {
+        const formData = new FormData();
+
+        formData.append('imageFile', this.file, this.fileName);
+        
+        //console.log(formData);
+        this.remoteService.uploadPicutre(formData, this.sellerId).subscribe({
+          next:(data)=>{
+            console.log(data)
+            console.log("data was sent to server")
+          },
+          error:(error:HttpErrorResponse) =>{
+            console.log(error.error)
+          }
+        })
+      }
+      else{
+        console.log("There was no image with the product")
+      }
+    }
 }

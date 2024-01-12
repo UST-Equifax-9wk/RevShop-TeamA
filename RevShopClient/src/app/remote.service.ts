@@ -110,8 +110,8 @@ export class RemoteService {
     });
   }
 
-  uploadPicutre(file:FormData){
-    return this.httpClient.post(this.baseUrl + "/images/newImage",file,{
+  uploadPicutre(file:FormData, productId:number){
+    return this.httpClient.post(this.baseUrl + "/images/" + productId + "/newImage",file,{
       reportProgress: true,
       withCredentials: true,
       observe:'events'

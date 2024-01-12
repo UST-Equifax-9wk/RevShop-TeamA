@@ -21,6 +21,25 @@
             <label>Current Inventory:</label>
             <input type="number" id = inventory [(ngModel)] = "newProduct.inventoryCount">
         </div>
+
+
+        <input type="file" class="file-input"
+       (change)="onFileSelected($event)" #fileUpload>
+
+<div class="file-upload">
+
+   {{fileName || "No file uploaded yet."}}
+
+    <button mat-mini-fab color="primary" class="upload-btn"
+      (click)="fileUpload.click()">
+        <div>Attach file</div>
+    </button>
+
+    <br>
+
+</div>
+<br>
+
         <button (click)="registerProduct()" *ngIf="newProduct.name != '' && newProduct.description != '' && newProduct.category != '' && newProduct.price > 0 && newProduct.inventoryCount >= 0; else dullButton">Add product</button>
         <ng-template #dullButton>
             <button disabled="true">Add product</button>

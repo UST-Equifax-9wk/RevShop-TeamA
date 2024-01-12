@@ -23,10 +23,10 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @PostMapping("/newImage")
-    public ResponseEntity<?> uploadImage(@RequestParam("imageFile")MultipartFile file) throws IOException {
+    @PostMapping("/{productId}/newImage")
+    public ResponseEntity<?> uploadImage(@RequestParam("imageFile")MultipartFile file, @PathVariable int productId) throws IOException, ObjectNotFoundException {
 
-        String uploadImage = imageService.uploadImage(file);
+        String uploadImage = imageService.uploadImage(file, productId);
         return ResponseEntity.status(HttpStatus.OK).body(uploadImage);
     }
 
