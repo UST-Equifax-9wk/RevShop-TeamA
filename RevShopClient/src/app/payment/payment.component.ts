@@ -37,7 +37,7 @@ export class PaymentComponent {
   //orderitems:Array<OrderItemDto> 
   constructor(private remoteService: RemoteService, private cookieService: CookieService) {
     //TODO: maybe change so that the user that comes back doesnt contain the encrypted password
-    this.remoteService.getUser(this.remoteService.decodeToken(this.cookieService.get('token'))).subscribe({
+    this.remoteService.getUser(this.remoteService.decodeToken(this.cookieService.get('token')).username).subscribe({
       next:data =>{
         console.log(data.body);
         Object.assign(this.account,data.body);
